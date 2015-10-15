@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="#90FFFFFF"
+    android:gravity="bottom|center_horizontal" >
+
+    <TextView
+        android:id="@+id/videoslist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_idea"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="视频列表" />
+
+    <TextView
+        android:id="@+id/introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:layout_toRightOf="@+id/videoslist"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_photo"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="功能介绍"/>
+
+    <TextView
+        android:id="@+id/watchvideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/introduce"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_camera"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="视频播放"/>
+
+    <TextView
+        android:id="@+id/songslist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videoslist"
+        android:layout_marginRight="30dip"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_lbs"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="歌曲列表"/>
+
+    <TextView
+        android:id="@+id/zhujiemian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/introduce"
+        android:layout_marginRight="30dip"
+        android:layout_toRightOf="@+id/songslist"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_review"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="主界面"/>
+
+    <TextView
+        android:id="@+id/zhuanjilist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/watchvideo"
+        android:layout_toRightOf="@+id/zhujiemian"
+        android:clickable="true"
+        android:drawableTop="@drawable/tabbar_compose_more"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/more_window_item_margin"
+        android:text="专辑列表"/>
+
+    <ImageView
+        android:id="@+id/center_music_window_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/zhujiemian"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dip"
+        
+        android:layout_toRightOf="@+id/songslist"
+        android:src="@drawable/tabbar_compose_background_icon_close" />
+
+</RelativeLayout>

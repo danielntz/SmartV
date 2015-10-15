@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jerome.weibo.MainActivity" >
+
+    
+    <item   
+             android:id="@+id/download"
+             android:title="下载"/>
+    <item   
+              android:id="@+id/upload"
+              android:title="上传"/>
+  
+
+</menu>
