@@ -18,7 +18,7 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
      
 	 private TextView textview; 
 	 private Context context;
-	 private LayoutInflater  inflater;
+	 private LayoutInflater  inflater;                                                                                                                                                                                                                                                                                                                                                                                                                       
 	 private  List<String> textviewdata;
 	 
 	

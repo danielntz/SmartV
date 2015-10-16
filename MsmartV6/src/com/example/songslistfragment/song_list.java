@@ -17,10 +17,10 @@ public class song_list extends Fragment {
 	
 	
 	  private ListView  gedanliebiao ;
-	  private gedanlistviewadapter adapter = null;
+	  private gedanlistviewadapter adapter = null;                                                                                                                                                                                                                                                              
 	  private AutoCompleteTextView  autodata;
 	  private autocompletetextadapter autoadapter = null;
-	
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
