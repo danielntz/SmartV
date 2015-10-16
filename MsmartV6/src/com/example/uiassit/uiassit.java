@@ -63,7 +63,16 @@ public class uiassit  {
 		  }
 		return  qqq;
 	}
-	
+	//搜索栏的autocompletetextview的数据源
+    
+	private static List<String> textview = new ArrayList<String>(); 
+	 private static String[] name3= new String[]{"sdf","ddd","rrr","wee"};
+     public static List<String> createtextview(){
+		  for(int i = 0 ; i < 4 ; i++){
+			   textview.add(name3[i]);
+		  }
+		 	return textview;
+     }
 }
 	
 
