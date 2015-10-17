@@ -20,7 +20,7 @@
              android:layout_height="wrap_content"
              android:layout_marginTop="6dip"
          
-             android:textSize="25sp"
+             android:textSize="20sp"
              android:textColor="#FFFFFFFF"/>
     
     <TextView  
@@ -29,7 +29,7 @@
               android:layout_height="wrap_content"
               android:layout_below="@id/showgeming"
              
-              android:textSize="17sp"
+              android:textSize="15sp"
               android:textColor="#FFFFFFFF"/>
    </RelativeLayout>
 </LinearLayout>

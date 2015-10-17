@@ -25,6 +25,7 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
      private  ArrayFilter mFilter;             //生成过滤器
      public  List<String> filttextviewdata;   //过滤后的list列表
 	 private Object mlock = new Object();
+	// private  static int j =0 ;
 	
 	
 
@@ -44,6 +45,7 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
+		//return filttextviewdata.get(position);
 		return filttextviewdata.get(position);
 	}
 
@@ -56,20 +58,23 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-	     if(convertView == null){
+	    
+		if(convertView == null){
 	    	 convertView = inflater.inflate(R.layout.autocompletetext_layout, null);
 	    	 
 	    	 textview = (TextView)convertView.findViewById(R.id.autodata);
 	     }
 	     else{}
 	    
-	     textview.setText(filttextviewdata.get(position).toString());
-		
+	       textview.setText(filttextviewdata.get(position).toString());
+	       
+	   
+	 
 		
 		return convertView;
 	}
 	public void clear(){
-		 textviewdata.clear();
+		  textviewdata.clear();
 		  notifyDataSetChanged();
 	}
 

@@ -1,13 +1,16 @@
 package com.example.uiassit;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.Mfunction.FunctionSDfilename;
 import com.jerome.weibo.R;
 
 import android.app.Activity;
+import android.os.Environment;
 import android.view.View;
 
 public class uiassit  {
@@ -48,19 +51,35 @@ public class uiassit  {
 		return  listcontent;
 		
 	}
-	//歌单listview的数据源
+	//歌单gedanlistview的数据源
 	
 	 private static List<HashMap<String,Object>> qqq = new ArrayList<HashMap<String,Object>>();      
-	 static String  name1[] = new String[]{"ddd","aaa","sdf","sdfsdf"};
-	 static String  name2[]  = new String[]{"eee","dddd","ssss","dse"};
-	public  static List<HashMap<String,Object>> creategedan(){
-		
-		  for(int i = 0 ; i < 4; i++){
+	// static String  name1[] = new String[]{"ddd","aaa","sdf","sdfsdf"};
+	// static String  name2[]  = new String[]{"eee","dddd","ssss","dse"};
+	 private static List<String> songsnames = new ArrayList<String>();
+	 private static List<String> songsgeshouname = new ArrayList<String>();
+	 private static File file = Environment.getExternalStorageDirectory();
+	  public  static List<HashMap<String,Object>> creategedan(){
+		 //测试用的实例 
+		/*  for(int i = 0 ; i < 4; i++){
 			   HashMap<String,Object> ok = new HashMap<String,Object>();
 			    ok.put("geming", name1[i]);
 			    ok.put("geshouming", name2[i]);
 			    qqq.add(ok);
-		  }
+		  }*/
+		songsnames = new FunctionSDfilename().getFilesname(file);
+		songsgeshouname = new FunctionSDfilename().getFilesgeshouname(file);
+		String[] name1 = new String[songsnames.size()];
+		String[] name2 = new String[songsgeshouname.size()];
+		for(int i = 0 ; i< songsnames.size();i++){
+			   name1[i] = songsnames.get(i);
+			   name2[i] = songsgeshouname.get(i);
+			   HashMap<String,Object> ok = new HashMap<String ,Object>();
+			   ok.put("geming", name1[i]);
+			   ok.put("geshouming", name2[i]);
+			   qqq.add(ok);
+		}
+		
 		return  qqq;
 	}
 	//搜索栏的autocompletetextview的数据源
