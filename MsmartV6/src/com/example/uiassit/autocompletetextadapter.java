@@ -1,10 +1,12 @@
 package com.example.uiassit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jerome.weibo.R;
 
 import android.content.Context;
+import android.graphics.Interpolator.Result;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,16 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-//autocompletetextview 怎样去实现Filterable的接口
+//autocompletetextview 怎样去实现Filterable的接口  ,怎样去实现过滤器接口
 public class autocompletetextadapter  extends  BaseAdapter implements Filterable {
      
 	 private TextView textview; 
 	 private Context context;
-	 private LayoutInflater  inflater;                                                                                                                                                                                                                                                                                                                                                                                                                       
+	 private LayoutInflater  inflater;
 	 private  List<String> textviewdata;
-	 
+     private  ArrayFilter mFilter;             //生成过滤器
+     public  List<String> filttextviewdata;   //过滤后的list列表
+	 private Object mlock = new Object();
 	
 	
 
@@ -34,13 +38,13 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return textviewdata.size();
+		return filttextviewdata.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return textviewdata.get(position);
+		return filttextviewdata.get(position);
 	}
 
 	@Override
@@ -59,16 +63,72 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 	     }
 	     else{}
 	    
-	     textview.setText(textviewdata.get(position).toString());
+	     textview.setText(filttextviewdata.get(position).toString());
 		
 		
 		return convertView;
+	}
+	public void clear(){
+		 textviewdata.clear();
+		  notifyDataSetChanged();
 	}
 
 	@Override
 	public Filter getFilter() {
 		// TODO Auto-generated method stub
-		return null;
+		if(mFilter == null){
+			mFilter = new ArrayFilter();
+		}
+		return mFilter;
+	} 	
+	
+	private class ArrayFilter extends Filter{
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			// TODO Auto-generated method stub
+			FilterResults  results = new FilterResults();
+			
+			if(constraint == null || constraint.length() == 0){
+				synchronized (mlock) {
+					List<String> list = new ArrayList<String>(textviewdata);    //把源数据赋给新建的list
+			     	results.values = list;
+					results.count = list.size();
+				 return results; 
+				} 
+			}
+			else{
+				String prefixstring =  constraint.toString().toLowerCase();
+				final int count = textviewdata.size();
+				final ArrayList<String> newvalues = new ArrayList<String>(count);
+				for(int i =0 ; i<count; i ++){
+					String value = textviewdata.get(i);
+					String valuetext = value.toLowerCase();
+					//进行匹配
+					if(valuetext.startsWith(prefixstring)){
+						newvalues.add(value);
+					}
+				}
+				results.values = newvalues;
+				results.count = newvalues.size();
+			}
+			return results;
+		}
+
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			  // TODO Auto-generated method stub
+			 filttextviewdata =  (List<String>) results.values;
+			if(results.count > 0){
+                
+				notifyDataSetChanged();
+			}
+			else{
+				notifyDataSetInvalidated();
+			}
+		}
+		
 	}
 
 }
