@@ -8,9 +8,9 @@
             android:layout_height="wrap_content"
             android:text="vbnvbnvb"/>
     <!-- 使用include用来调用其他的布局 -->
-   
+    <!-- 
      <include   
             android:id="@+id/mixlayout"
             layout="@layout/song_list_layout"/>
-
+    -->
 </LinearLayout>

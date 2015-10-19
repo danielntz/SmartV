@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dip"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
     <TextView   
              android:id="@+id/autodata"
-             android:layout_width="450dip"
-             android:layout_height="40dip"
+             android:layout_width="800dip"
+             android:layout_height="wrap_content"
              android:textSize="20sp"
              android:gravity="center_vertical"/>
 

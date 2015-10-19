@@ -14,7 +14,7 @@ public class FunctionSDfilename {
     private  List<String> filesname = new ArrayList<String>();       //装载歌名
     private  List<String> filesgeshouname = new ArrayList<String>(); //装载歌手名
 	//private  HashMap<List,List> ddd;
-    
+    //获得歌名名字资源
     public FunctionSDfilename(){
 		   
 	   }
@@ -41,6 +41,7 @@ public class FunctionSDfilename {
 		  }
 		   return filesname;
      }
+	   //获得歌手名字资源
 	   public  List<String> getFilesgeshouname(File SDpathgeshou){
 		    File[] file = SDpathgeshou.listFiles();
 		    if(file != null){

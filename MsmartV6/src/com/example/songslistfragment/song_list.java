@@ -18,14 +18,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 /**
  *  下拉菜单出现重复现象，怎样去重
  * @author lenovo
  *
  */
-public class song_list extends Fragment {
+public class song_list extends Fragment implements OnItemClickListener {
 	
 	
 	  private static final String TAG = null;
@@ -52,9 +55,20 @@ public class song_list extends Fragment {
 		gedanliebiao.setAdapter(adapter);       
 		adapter.refresh(uiassit.creategedan());
 		new Functiongetfilename().getfilename();;
+		autodata.setOnItemClickListener(this);
+		
 		
 		
 		return  fragment2;
+	}
+
+
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		 Toast.makeText(getActivity(), "dfd", 0).show();
 	}
 	
 	

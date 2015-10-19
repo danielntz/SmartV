@@ -4,26 +4,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.zhuui.zhujiemian;
 import com.jerome.weibo.R;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.sax.StartElementListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class gedanlistviewadapter  extends BaseAdapter{
+public class gedanlistviewadapter  extends BaseAdapter implements  android.view.View.OnClickListener{
       
+	  private static final String TAG = null;
 	  private List<HashMap<String,Object>> transit = new ArrayList<HashMap<String,Object>>();
 	  private  TextView  geming;
 	  private  TextView  geshou;
 	  private LayoutInflater   inflater = null;
-	  
+	  private  Context context;
 	 public  gedanlistviewadapter(Context context,List<HashMap<String,Object>> hhh){
 		       super();
 		       this.transit = hhh;
-		       this.inflater  = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+		       this.context = context;
+		       this.inflater  = LayoutInflater.from(context);
 	 }
 	  
 	@Override
@@ -64,9 +73,26 @@ public class gedanlistviewadapter  extends BaseAdapter{
 		 //返回数据
 		 geming.setText(transit.get(position).get("geming").toString());
 		 geshou.setText(transit.get(position).get("geshouming").toString());
-		 
+		 geming.setOnClickListener(this);
 		
 		return convertView;
 	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.showgeming:
+			//Log.i(TAG, "dfs");
+			Intent inten1 = new Intent(context,zhujiemian.class);   //点击歌名时弹出主界面窗口,继承baseadapter,里面的控件添加点击事件
+			context.startActivity(inten1);
+		    break;
+
+		
+		
+		}
+	}
+
+	
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import com.jerome.weibo.R;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Interpolator.Result;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -67,8 +69,8 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 	     else{}
 	    
 	       textview.setText(filttextviewdata.get(position).toString());
+	      
 	       
-	   
 	 
 		
 		return convertView;
@@ -135,5 +137,8 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 		}
 		
 	}
+
+	
+	
 
 }

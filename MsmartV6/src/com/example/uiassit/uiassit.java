@@ -11,6 +11,7 @@ import com.jerome.weibo.R;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 
 public class uiassit  {
@@ -85,10 +86,15 @@ public class uiassit  {
 	//搜索栏的autocompletetextview的数据源
     
 	private static List<String> textview = new ArrayList<String>(); 
-	 private static String[] name3= new String[]{"sdf","ddd","rrr","wee","sdffff"};
+	//把sd卡中的所有MP3文件加到数据源中
+    private  static  File str = Environment.getExternalStorageDirectory();
+    private  static List<String>datasource = new FunctionSDfilename().getFilesname(str);
+	private  static  int length = datasource.size();
+    //private static String[] name3= new String[]{"sdf","ddd","rrr","wee","sdffff"};
      public static List<String> createtextview(){
-		  for(int i = 0 ; i < 5 ; i++){
-			   textview.add(name3[i]);
+		  for(int i = 0 ; i < length ; i++){
+			   textview.add(datasource.get(i));
+			   Log.i("TAG", datasource.get(i));
 		  }
 		 	return textview;
      }
