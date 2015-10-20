@@ -17,6 +17,7 @@ import com.example.viewpager.songword;
 import com.jerome.weibo.*;
 
 import android.R.color;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.Gravity;
@@ -53,6 +55,7 @@ import android.widget.Toast;
 
 public class zhujiemian  extends FragmentActivity implements OnClickListener, OnTouchListener{
     
+	private static final String TAG = null;
 	private   LinearLayout linearlayout;
 	private   ImageView  suoxiao;
 	private   TextView   songtitle;
@@ -80,8 +83,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	private  ImageView   leftdot;
 	private  ImageView   middledot;
 	private  ImageView   rightdot;
-	
-
+	private   int flagbofangrule ;    //1 随机播放，2 顺序播放(按照列表的方式) 3 单曲循环 
+	private   int flagcollectrule;    //1 不喜欢 2 喜欢
+    private  PopupWindow  introduction;
 	@Override
 	
 	
@@ -109,7 +113,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		leftdot = (ImageView)findViewById(R.id.leftdot);
 		middledot = (ImageView)findViewById(R.id.middledot);
 		rightdot = (ImageView)findViewById(R.id.rightdot);
-		
+		flagbofangrule =1 ;     //初始播放为随机播放
+		gongneng.setImageResource(R.drawable.neng);
+		flagcollectrule = 1;    //初始化为不喜欢
 		//初始化viewpaper
 		initsetviewadapter();
 		
@@ -154,6 +160,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		return false;
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -226,10 +233,77 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			init(); //弹出菜單界面
 		}
 		 break;
-	
+	case R.id.gongneng:
+		 if(flagbofangrule == 1){
+		 
+		     gongneng.setImageResource(R.drawable.tupian1);     //随机播放播放模式
+			 flagbofangrule =2;
+		/*	 if(introduction !=  null && introduction.isShowing()){
+				 introduction.dismiss();
+			 }
+			 else{
+			 initjieshaofunction(1);
+			 }*/ 
+			 initjieshaofunction(1);
+			 new Thread(new myintroduction()).start();
+		 }
+		 else if(flagbofangrule == 2){
+		
+			 gongneng.setImageResource(R.drawable.neng1);       //切换到单曲循环模式
+			 flagbofangrule =3 ;
+			  initjieshaofunction(2);
+			  new Thread(new myintroduction()).start();
+			 
+		 }else{
+		
+			 gongneng.setImageResource(R.drawable.neng);       //切换到顺序播放模式
+			 flagbofangrule = 1;
+			
+				 initjieshaofunction(3);
+				 new Thread(new myintroduction()).start();
+		 }
+		
+		 break;
+	case R.id.collect:
+		 if(flagcollectrule == 1 ){
+			 collect.setImageResource(R.drawable.collect);
+			 Log.i(TAG,	 "1");
+			 flagcollectrule =2;
+		 }
+		 else{
+			 collect.setImageResource(R.drawable.heart1);
+			 flagcollectrule =1 ;
+			 Log.i(TAG,	 "2");
+		 }
+		 break;
      }
 	  
+	  
 		   
+	}
+	
+	public void initjieshaofunction(int select ){
+		 switch (select) {
+		case 1:
+			View functionintroduce = getLayoutInflater().inflate(R.layout.introduceframe, null);  //弹出介绍界面
+		      introduction = new PopupWindow(functionintroduce,500,70);
+		      introduction.showAtLocation(this.findViewById(R.id.wholezhujiemian), Gravity.CENTER_VERTICAL, 0,-260); 
+			break;
+		case 2 :
+			 View functionintroduce1 = getLayoutInflater().inflate(R.layout.introduceframe1, null);
+			 introduction = new PopupWindow(functionintroduce1,500,70);
+			 introduction.showAtLocation(this.findViewById(R.id.wholezhujiemian), Gravity.CENTER_VERTICAL, 0, -260);
+			 break;
+		case 3:
+			 View functionintroduce2 = getLayoutInflater().inflate(R.layout.introduceframe2, null);
+			 introduction = new PopupWindow(functionintroduce2,500,70);
+			 introduction.showAtLocation(this.findViewById(R.id.wholezhujiemian), Gravity.CENTER_VERTICAL, 0, -260);
+			 break;
+		    
+		
+		}
+		  
+	      
 	}
 	
 	public void  init(){
@@ -363,6 +437,31 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 
 	 }
 	 
+	 public class myintroduction implements Runnable{
+
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(introduction != null && introduction.isShowing())
+					 {
+						   introduction.dismiss();
+					 }
+					
+				}
+			});
+			
+		}	
+		 
+	 }
 	  
 		  
 	  

@@ -22,13 +22,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 /**
  *  下拉菜单出现重复现象，怎样去重
+ *  滑动listview，列表的item项会发生变化，每次滑动item项内容发生变化
  * @author lenovo
  *
  */
-public class song_list extends Fragment implements OnItemClickListener {
+public class song_list extends Fragment implements OnItemClickListener  {
 	
 	
 	  private static final String TAG = null;
@@ -36,6 +38,7 @@ public class song_list extends Fragment implements OnItemClickListener {
 	  private gedanlistviewadapter adapter = null;
 	  private AutoCompleteTextView  autodata;
 	  private autocompletetextadapter autoadapter = null;
+	  private gedanlistviewadapter updateadapter = null;
 	  //用于获得SD卡上的所有MP3文件的名字
 	  
 		
@@ -55,7 +58,7 @@ public class song_list extends Fragment implements OnItemClickListener {
 		gedanliebiao.setAdapter(adapter);       
 		adapter.refresh(uiassit.creategedan());
 		new Functiongetfilename().getfilename();;
-		autodata.setOnItemClickListener(this);
+		autodata.setOnItemClickListener(this);   //autocompletetextview的点击事件
 		
 		
 		
@@ -68,8 +71,22 @@ public class song_list extends Fragment implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		 Toast.makeText(getActivity(), "dfd", 0).show();
+		
+		
+		 
+		 String gename = autoadapter.filttextviewdata.get(position).toString();
+		 updateadapter = new gedanlistviewadapter(getActivity(), uiassit.Compare(gename));
+		 updateadapter.clear();
+		 gedanliebiao.setAdapter(updateadapter);
+		 updateadapter.refresh(uiassit.Compare(gename));
 	}
+
+
+
+	
+
+
+	
 	
 	
 	

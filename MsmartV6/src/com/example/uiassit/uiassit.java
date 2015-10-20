@@ -98,6 +98,29 @@ public class uiassit  {
 		  }
 		 	return textview;
      }
+     
+    //Ë¢ÐÂlistview¹¤×÷À¸
+    private  static List<HashMap<String,Object>> updatedata = new ArrayList<HashMap<String,Object>>();
+    public   static  List<HashMap<String,Object>>  Compare(String ziduan){
+    	  File  file = Environment.getExternalStorageDirectory();
+          List<String> pipeiname = new ArrayList<String>();
+          List<String>  pipeigeshouname = new ArrayList<String>();
+      	  pipeiname = new FunctionSDfilename().getFilesname(file);
+      	  pipeigeshouname = new FunctionSDfilename().getFilesgeshouname(file);
+    	  for(int i =0 ; i < pipeiname.size(); i++){
+    		  if(pipeiname.get(i).equals(ziduan)){
+    			    HashMap<String,Object> map = new HashMap<String,Object>();
+    			    map.put("geming", pipeiname.get(i));
+    			    map.put("geshouming", pipeigeshouname.get(i));
+    			    updatedata.add(map);
+    			    break;
+    		    }
+    	  }
+    	
+    	return updatedata;
+    	
+    }
+    
 }
 	
 

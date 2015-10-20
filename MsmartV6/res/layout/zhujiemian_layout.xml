@@ -165,9 +165,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_marginLeft="80dip"
-                          android:layout_marginTop="41dip"
-                          android:background="@drawable/neng"
-                             />
+                          android:layout_marginTop="41dip"                             />
                   <ImageView   
                            android:id="@+id/collect"
                           android:layout_width="wrap_content"
