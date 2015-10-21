@@ -23,12 +23,12 @@ import android.widget.Toast;
 public class gedanlistviewadapter  extends BaseAdapter implements  android.view.View.OnClickListener{
       
 	  private static final String TAG = null;
-	  private List<HashMap<String,Object>> transit = new ArrayList<HashMap<String,Object>>();
+	  public List<HashMap<String,Object>> transit = new ArrayList<HashMap<String,Object>>();
 	  private  TextView  geming;
 	  private  TextView  geshou;
 	  private LayoutInflater   inflater = null;
 	  private  Context context;
-	 public  gedanlistviewadapter(Context context,List<HashMap<String,Object>> hhh){
+	   public  gedanlistviewadapter(Context context,List<HashMap<String,Object>> hhh){
 		       super();
 		       this.transit = hhh;
 		       this.context = context;
@@ -73,7 +73,7 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		 //返回数据
 		 geming.setText(transit.get(position).get("geming").toString());
 		 geshou.setText(transit.get(position).get("geshouming").toString());
-		 geming.setOnClickListener(this);
+	//	 geming.setOnClickListener(this);
 		
 		return convertView;
 	}
@@ -83,7 +83,8 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.showgeming:
-			//Log.i(TAG, "dfs");
+			String name = (String) geming.getText();
+			Log.i(TAG, name);
 			Intent inten1 = new Intent(context,zhujiemian.class);   //点击歌名时弹出主界面窗口,继承baseadapter,里面的控件添加点击事件
 			context.startActivity(inten1);
 		    break;

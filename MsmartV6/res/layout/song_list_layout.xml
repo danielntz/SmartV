@@ -45,7 +45,8 @@
                      android:textColor="#ff000000"
                      android:background="@null"
                      android:singleLine="true"
-                     android:textSize="20sp" />
+                     android:textSize="20sp"
+                     android:maxLength="16" />
     </RelativeLayout>
            
         <ListView  

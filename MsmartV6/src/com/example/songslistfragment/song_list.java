@@ -9,8 +9,10 @@ import com.example.Mfunction.Functiongetfilename;
 import com.example.uiassit.autocompletetextadapter;
 import com.example.uiassit.gedanlistviewadapter;
 import com.example.uiassit.uiassit;
+import com.example.zhuui.zhujiemian;
 import com.jerome.weibo.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -59,7 +61,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		adapter.refresh(uiassit.creategedan());
 		new Functiongetfilename().getfilename();;
 		autodata.setOnItemClickListener(this);   //autocompletetextview的点击事件
-		
+		gedanliebiao.setOnItemClickListener(this);
 		
 		
 		return  fragment2;
@@ -71,14 +73,20 @@ public class song_list extends Fragment implements OnItemClickListener  {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		
-		
-		 
-		 String gename = autoadapter.filttextviewdata.get(position).toString();
+	if( parent != gedanliebiao){
+		String gename = autoadapter.filttextviewdata.get(position).toString();
 		 updateadapter = new gedanlistviewadapter(getActivity(), uiassit.Compare(gename));
 		 updateadapter.clear();
 		 gedanliebiao.setAdapter(updateadapter);
 		 updateadapter.refresh(uiassit.Compare(gename));
+	}
+		 if(parent == gedanliebiao){     //按下listview时调用的方法
+			 Intent intent1 = new Intent(getActivity(),zhujiemian.class);
+			 String name =  adapter.transit.get(position).get("geming").toString();
+			 intent1.putExtra("geming", name);
+			 Log.i(TAG, name);
+			 startActivity(intent1);      //开启主界面
+		 }
 	}
 
 

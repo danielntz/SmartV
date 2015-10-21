@@ -19,6 +19,7 @@ import com.jerome.weibo.*;
 import android.R.color;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -86,6 +87,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	private   int flagbofangrule ;    //1 随机播放，2 顺序播放(按照列表的方式) 3 单曲循环 
 	private   int flagcollectrule;    //1 不喜欢 2 喜欢
     private  PopupWindow  introduction;
+    long starttime ;     //当前线程开启时间
+    long endtime  ;      //当前线程结束时间
+    private String gequmingzi;    //获得传递过来的歌曲名字
 	@Override
 	
 	
@@ -118,6 +122,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		flagcollectrule = 1;    //初始化为不喜欢
 		//初始化viewpaper
 		initsetviewadapter();
+		//初始化获得传递过来的值
+		Intent intent =getIntent();
+	    gequmingzi = intent.getStringExtra("geming");
 		
 	    bofang.setOnClickListener(this);
 	    zanting.setOnClickListener(this);
@@ -179,8 +186,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 
 		
 		 try {
-		 	bofangmusic.start();
-		
+		 	bofangmusic.start(gequmingzi);
+		  
 			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
 			// new Thread(new seekbartongbu()).start();
 			new Thread (new Runnable(){
@@ -235,32 +242,31 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 break;
 	case R.id.gongneng:
 		 if(flagbofangrule == 1){
-		 
+		    
 		     gongneng.setImageResource(R.drawable.tupian1);     //随机播放播放模式
 			 flagbofangrule =2;
-		/*	 if(introduction !=  null && introduction.isShowing()){
-				 introduction.dismiss();
-			 }
-			 else{
-			 initjieshaofunction(1);
-			 }*/ 
+			 starttime = System.currentTimeMillis();   //当前系统的时间
 			 initjieshaofunction(1);
 			 new Thread(new myintroduction()).start();
+			 
 		 }
 		 else if(flagbofangrule == 2){
 		
 			 gongneng.setImageResource(R.drawable.neng1);       //切换到单曲循环模式
 			 flagbofangrule =3 ;
+			  starttime = System.currentTimeMillis();      //当前系统的时间
 			  initjieshaofunction(2);
 			  new Thread(new myintroduction()).start();
+			  
 			 
 		 }else{
 		
 			 gongneng.setImageResource(R.drawable.neng);       //切换到顺序播放模式
 			 flagbofangrule = 1;
-			
+			 starttime = System.currentTimeMillis();     //当前系统的时间
 				 initjieshaofunction(3);
 				 new Thread(new myintroduction()).start();
+				
 		 }
 		
 		 break;
@@ -400,7 +406,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			if(bofangmusic.player == null){
 				 position = progress;
 				 try {
-					bofangmusic.start();
+					bofangmusic.start(gequmingzi);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -410,7 +416,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 				position = progress;
 				try {
 					try {
-						bofangmusic.start();
+						bofangmusic.start(gequmingzi);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -442,7 +448,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1200);
+				endtime = System.currentTimeMillis();
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -451,11 +458,13 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 				
 				@Override
 				public void run() {
-					if(introduction != null && introduction.isShowing())
+					if(introduction != null && introduction.isShowing() && endtime - starttime  - 1200 < 50 && endtime - starttime - 1200 > 0 )
 					 {
-						   introduction.dismiss();
+						
+						introduction.dismiss();
 					 }
-					
+					//if(endtime - starttime - 1500 <0 && introduction != null)  
+					//	introduction.dismiss();
 				}
 			});
 			
