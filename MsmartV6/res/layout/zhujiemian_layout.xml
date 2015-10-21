@@ -90,6 +90,7 @@
                    android:layout_height="wrap_content"
                    android:layout_marginTop="8dip"
                    android:text="时间"
+                   android:textColor="#FFFFFFFF"
                    android:textSize="10sp" 
                     />
          
@@ -110,6 +111,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="总时间"
+                   android:textColor="#FFFFFFFF"
                    android:layout_marginTop="8dip"
                    android:textSize="10sp" 
                     />

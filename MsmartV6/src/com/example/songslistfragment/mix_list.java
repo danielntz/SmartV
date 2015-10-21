@@ -17,7 +17,7 @@ public class mix_list  extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View fragment3 = inflater.inflate(R.layout.mix_list_layout, container, false);
-		 listview = (ListView)fragment3.findViewById(R.id.gequliebiao);
+	//	 listview = (ListView)fragment3.findViewById(R.id.gequliebiao);
 	     
 		 
 		 

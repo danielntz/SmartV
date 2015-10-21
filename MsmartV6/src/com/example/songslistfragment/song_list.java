@@ -40,7 +40,9 @@ public class song_list extends Fragment implements OnItemClickListener  {
 	  private gedanlistviewadapter adapter = null;
 	  private AutoCompleteTextView  autodata;
 	  private autocompletetextadapter autoadapter = null;
-	  private gedanlistviewadapter updateadapter = null;
+	  private gedanlistviewadapter updateadapter = new gedanlistviewadapter();
+	  private ListView gedanliebiao2 ;     //用于刷新后的listview
+	//  private  gedanlistviewadapter  
 	  //用于获得SD卡上的所有MP3文件的名字
 	  
 		
@@ -50,6 +52,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		// TODO Auto-generated method stub
 		View fragment2 = inflater.inflate(R.layout.song_list_layout, container, false);
 		gedanliebiao = (ListView)fragment2.findViewById(R.id.gequliebiao);
+		gedanliebiao2 = (ListView)fragment2.findViewById(R.id.gequliebiao);
 		autodata = (AutoCompleteTextView)fragment2.findViewById(R.id.sousuoneirong);
 		autoadapter = new autocompletetextadapter(getActivity(),uiassit.createtextview());
 		adapter = new gedanlistviewadapter(getActivity(),uiassit.creategedan());
@@ -73,20 +76,32 @@ public class song_list extends Fragment implements OnItemClickListener  {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-	if( parent != gedanliebiao){
+	if( parent != gedanliebiao && parent!= gedanliebiao2){   //多个组件绑定一个点击列表事件
 		String gename = autoadapter.filttextviewdata.get(position).toString();
 		 updateadapter = new gedanlistviewadapter(getActivity(), uiassit.Compare(gename));
 		 updateadapter.clear();
 		 gedanliebiao.setAdapter(updateadapter);
 		 updateadapter.refresh(uiassit.Compare(gename));
+		 
 	}
 		 if(parent == gedanliebiao){     //按下listview时调用的方法
-			 Intent intent1 = new Intent(getActivity(),zhujiemian.class);
+			//分两种情况  1初始化的，2 进行选择后的
+			 if(updateadapter.transit.size() < 2  && updateadapter.transit.size() > 0){
+				 Intent intent1 = new Intent(getActivity(),zhujiemian.class);
+				 String name =  updateadapter.transit.get(position).get("geming").toString();
+				 intent1.putExtra("geming", name);
+				 Log.i(TAG, name);
+				 startActivity(intent1);      //开启主界面
+			 }
+			 else{
+		    Intent intent1 = new Intent(getActivity(),zhujiemian.class);
 			 String name =  adapter.transit.get(position).get("geming").toString();
 			 intent1.putExtra("geming", name);
 			 Log.i(TAG, name);
 			 startActivity(intent1);      //开启主界面
+			 }
 		 }
+		
 	}
 
 

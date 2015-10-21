@@ -6,6 +6,7 @@ import com.jerome.weibo.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,8 @@ import android.widget.ListView;
 
 public class favourite_list  extends Fragment{
    
-	    private gedanlistviewadapter gedanadapter = null;
+	    private static final String TAG = null;
+		private gedanlistviewadapter gedanadapter = null;
 	    private ListView  myfavourite = null;
 	    private AutoCompleteTextView  wodezuiaiauto = null;
 	    private autocompletetextadapter wodezuiaiadapter = null;
@@ -25,14 +27,16 @@ public class favourite_list  extends Fragment{
 		// TODO Auto-generated method stub
 		View fragment1 = inflater.inflate(R.layout.favourite_list_layout, container, false);
 	  	
-		 myfavourite = (ListView)fragment1.findViewById(R.id.gequliebiao);
-		 wodezuiaiauto = (AutoCompleteTextView)fragment1.findViewById(R.id.sousuoneirong);
-		
-		
-		
+	//	 myfavourite = (ListView)fragment1.findViewById(R.id.gequliebiao);
+	//	 wodezuiaiauto = (AutoCompleteTextView)fragment1.findViewById(R.id.sousuoneirong);
+		 //获取Activity传递过来的值
+		Bundle bundle = this.getArguments();
+		String name = bundle.getString("ddd");
+		Log.i(TAG, name);
 		return  fragment1;
 	}
       
+	
 	     
 	
 } 

@@ -12,7 +12,8 @@
         android:allowBackup="true"
         android:icon="@drawable/backphoto"
         android:label="MsmartV"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+        android:name="com.example.uiassit.chuandishuju">
         <activity
             android:name="com.example.jet.MainActivity"
             android:label="MsmartV" >
@@ -28,6 +29,7 @@
          <activity android:name="com.example.zhuui.videoshow"></activity>
           <activity android:name="com.example.zhuui.zhujiemian"></activity>
            <activity android:name="com.example.zhuui.videoslist"></activity>
+           <activity  android:name="com.example.songslistfragment.favourite_list"></activity>
     </application>
 
 </manifest>

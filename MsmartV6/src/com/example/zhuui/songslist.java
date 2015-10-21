@@ -3,14 +3,17 @@ package com.example.zhuui;
 import com.example.songslistfragment.favourite_list;
 import com.example.songslistfragment.mix_list;
 import com.example.songslistfragment.song_list;
+import com.example.uiassit.chuandishuju;
 import com.jerome.weibo.*;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,13 +21,15 @@ import android.widget.Button;
 
 public class songslist  extends  FragmentActivity implements OnClickListener{
      
-	 private  favourite_list   wodezuiai;
+	 private static final String TAG = null;
+	private  favourite_list   wodezuiai ;
 	 private  mix_list         zuheliebiao;
 	 private  song_list        gequliebiao;
 	 private   FragmentManager  fragmentmanager;    //用于对Fragment的处理
 	 private  Button    one;
 	 private  Button two;
 	 private  Button three;
+	 private String name1;
 	 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -34,6 +39,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		one = (Button)findViewById(R.id.tab1);
 		two = (Button)findViewById(R.id.tab2);
 		three = (Button)findViewById(R.id.tab3);
+	    
 		one.setOnClickListener(this);
 		two.setOnClickListener(this);
 		three.setOnClickListener(this);
@@ -55,18 +61,29 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 			else{
 				 trans.show(gequliebiao);
 			}
+			
 			trans.commit();
 			break;
 		case 1:
 			 two.setTextColor(Color.GREEN);
+			// Intent intent2 = getIntent();              //获得传递过来的参数
+			// name1 =  intent2.getStringExtra("songname");
+			//  Log.i(TAG, name1);
+		     
+			Bundle data = new  Bundle();
+			data.putString("ddd",new chuandishuju().name );
+			
 			 if(wodezuiai == null){
 					wodezuiai = new favourite_list();
+					wodezuiai.setArguments(data);
 					trans.add(R.id.songslist, wodezuiai);
 				}
 				else{
+					//wodezuiai.setArguments(data);
 					 trans.show(wodezuiai);
 				}
-				trans.commit();
+	
+			trans.commit();
 		     break;
 		case 2:
 			 three.setTextColor(Color.GREEN);

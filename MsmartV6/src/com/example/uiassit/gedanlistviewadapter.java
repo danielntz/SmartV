@@ -28,6 +28,9 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 	  private  TextView  geshou;
 	  private LayoutInflater   inflater = null;
 	  private  Context context;
+	  public gedanlistviewadapter(){
+		  
+	  }
 	   public  gedanlistviewadapter(Context context,List<HashMap<String,Object>> hhh){
 		       super();
 		       this.transit = hhh;

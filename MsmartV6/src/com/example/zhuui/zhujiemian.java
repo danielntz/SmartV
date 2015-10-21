@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.example.Mfunction.FunctionM;
+import com.example.songslistfragment.favourite_list;
+import com.example.uiassit.chuandishuju;
 import com.example.uiassit.gridvietianchong;
 import com.example.uiassit.gridviewadapter;
 import com.example.uiassit.mypageeradapter;
@@ -90,6 +92,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
     long starttime ;     //当前线程开启时间
     long endtime  ;      //当前线程结束时间
     private String gequmingzi;    //获得传递过来的歌曲名字
+    private  TextView  bofangshijian;
+    private  TextView  zongshijian;
 	@Override
 	
 	
@@ -117,6 +121,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		leftdot = (ImageView)findViewById(R.id.leftdot);
 		middledot = (ImageView)findViewById(R.id.middledot);
 		rightdot = (ImageView)findViewById(R.id.rightdot);
+		bofangshijian = (TextView)findViewById(R.id.bofangshijian);    //音乐播放的时间
+		zongshijian = (TextView)findViewById(R.id.zongshijian);        //音乐的总时间
 		flagbofangrule =1 ;     //初始播放为随机播放
 		gongneng.setImageResource(R.drawable.neng);
 		flagcollectrule = 1;    //初始化为不喜欢
@@ -189,6 +195,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 	bofangmusic.start(gequmingzi);
 		  
 			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
+		//	 zongshijian.setText(bofangmusic.player.getDuration());
 			// new Thread(new seekbartongbu()).start();
 			new Thread (new Runnable(){
 
@@ -199,6 +206,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 					
 					try {
 						seekbar.setProgress(bofangmusic.player.getCurrentPosition()); //获得当前播放的进度值
+					 //   bofangshijian.setText(bofangmusic.player.getCurrentPosition());
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -272,12 +280,16 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 break;
 	case R.id.collect:
 		 if(flagcollectrule == 1 ){
-			 collect.setImageResource(R.drawable.collect);
+			 collect.setImageResource(R.drawable.heart1);
 			 Log.i(TAG,	 "1");
 			 flagcollectrule =2;
+			 //给我的最爱的列表栏里面添加喜欢的歌曲,采用application
+		     chuandishuju shuju = (chuandishuju)getApplicationContext();
+			 shuju.setname(gequmingzi);
+		     
 		 }
 		 else{
-			 collect.setImageResource(R.drawable.heart1);
+			 collect.setImageResource(R.drawable.collect);
 			 flagcollectrule =1 ;
 			 Log.i(TAG,	 "2");
 		 }
