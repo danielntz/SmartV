@@ -5,10 +5,56 @@
     android:orientation="vertical" 
     android:background="@drawable/wodezuiai">
    
-  <TextView    
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="sdfds"/>
-     
+   <RelativeLayout    
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                   android:background="@drawable/sousuobeijing">
+         <ImageView   
+                    android:id="@+id/sousuo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginLeft="4dip"
+                    android:background="@drawable/sousuo"/>
+         <TextView 
+                     android:id="@+id/sousuozi"
+                     android:layout_toRightOf="@id/sousuo"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="2dip"
+                     android:text="搜索 :"
+                     android:textColor="#FFFFFFFF"
+                     android:textSize="18sp"/>
+       <!--  
+         <EditText   
+                     android:id="@+id/sousuoneirong"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_toRightOf="@id/sousuozi"
+                     android:hint="请输入歌曲的名字"
+                     android:textColor="#ff000000"
+                     android:background="@null"
+                     android:textSize="20sp"/>
+        -->
+        <!-- 是一个TextView的子类 -->
+         <AutoCompleteTextView  
+                     android:id="@+id/sousuoneirong"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_toRightOf="@id/sousuozi"
+                     android:hint="请输入歌曲的名字"
+                     android:textColor="#ff000000"
+                     android:background="@null"
+                     android:singleLine="true"
+                     android:textSize="20sp"
+                     android:maxLength="16" />
+    </RelativeLayout>
+           
+        <ListView  
+                android:id="@+id/gequliebiao1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:listSelector="@drawable/list_button"
+                android:divider="@drawable/showdivider"></ListView>
    
 </LinearLayout>

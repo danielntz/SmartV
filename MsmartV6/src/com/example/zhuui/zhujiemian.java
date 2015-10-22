@@ -289,9 +289,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		     
 		 }
 		 else{
-			 collect.setImageResource(R.drawable.collect);
-			 flagcollectrule =1 ;
-			 Log.i(TAG,	 "2");
+			   collect.setImageResource(R.drawable.collect);    //在点一下取消喜欢
+			   flagcollectrule =1 ;
+			    Log.i(TAG,	 "2");
 		 }
 		 break;
      }

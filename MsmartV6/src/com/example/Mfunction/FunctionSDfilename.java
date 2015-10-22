@@ -52,7 +52,8 @@ public class FunctionSDfilename {
 					  else{
 						  String filename = file1.getName(); //得到文件的名字
 						  if(filename.endsWith(".mp3")){
-							 String zhenname = filename.substring(0,filename.indexOf("-")).toString();
+							
+							  String zhenname = filename.substring(0,filename.indexOf("-")).toString();
 							 filesgeshouname.add(zhenname);
 						  }
 		    	}
@@ -60,6 +61,7 @@ public class FunctionSDfilename {
 		    	return filesgeshouname;
 	   }
 		    return filesgeshouname;
+		    
 	   }
 	
 }

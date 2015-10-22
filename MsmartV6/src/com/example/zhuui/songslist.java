@@ -53,6 +53,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		hideFragments(trans);
 		switch (index) {
 		case 0:
+			wodezuiai = null;
 			one.setTextColor(Color.GREEN);
 			if(gequliebiao == null){
 				gequliebiao = new song_list();
@@ -66,28 +67,37 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 			break;
 		case 1:
 			 two.setTextColor(Color.GREEN);
-			// Intent intent2 = getIntent();              //获得传递过来的参数
-			// name1 =  intent2.getStringExtra("songname");
-			//  Log.i(TAG, name1);
-		     
-			Bundle data = new  Bundle();
-			data.putString("ddd",new chuandishuju().name );
+		    //采用application 的方法来获得activity传递过来的数据
+		   	Bundle data = new  Bundle();
+		   	data.putString("ddd",new chuandishuju().name );
 			
 			 if(wodezuiai == null){
-					wodezuiai = new favourite_list();
-					wodezuiai.setArguments(data);
+				 wodezuiai = new favourite_list();	
+				 if( !new chuandishuju().name.equals("yes"))
+					{  
+					   new chuandishuju().flag = 2;
+					   Log.isLoggable(TAG, new chuandishuju().flag);
+					   wodezuiai.setArguments(data);
+					}
 					trans.add(R.id.songslist, wodezuiai);
 				}
-				else{
+				/*else{
 					//wodezuiai.setArguments(data);
+				
+					if(!new chuandishuju().name.equals("yes"))
+						{  
+						   new chuandishuju().flag = 2;
+						   Log.isLoggable(TAG, new chuandishuju().flag);
+						   wodezuiai.setArguments(data);
+						}
 					 trans.show(wodezuiai);
-				}
+				}*/
 	
 			trans.commit();
 		     break;
 		case 2:
 			 three.setTextColor(Color.GREEN);
-			
+			 wodezuiai = null;
 			 if(zuheliebiao == null){
 					zuheliebiao = new mix_list();
 					trans.add(R.id.songslist, zuheliebiao);

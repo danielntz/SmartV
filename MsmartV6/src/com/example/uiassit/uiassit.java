@@ -98,6 +98,13 @@ public class uiassit  {
 		  }
 		 	return textview;
      }
+     //搜索栏的autocompletetextview的数据源
+     private static List<String> songslikename = new ArrayList<String>();
+     public static List<String> createautolike(String name){
+    	 
+    	     songslikename.add(name) ; 
+    	     return songslikename;
+     }
      
     //刷新listview工作栏
     private  static List<HashMap<String,Object>> updatedata = new ArrayList<HashMap<String,Object>>();
@@ -120,6 +127,8 @@ public class uiassit  {
     	return updatedata;
     	
     }
+   
+    
     
 }
 	

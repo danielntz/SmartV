@@ -60,8 +60,8 @@ public class LrcHandle {
 
 	    // 分离出时间
 	    private int timeHandler(String string) {
-	       string = string.replace(".", ":");
-	       String timeData[] = string.split(":");
+	       string = string.replace(".", ":");          //把字符串中的.换成：
+	       String timeData[] = string.split(":");     //把字符串中的字符串按照冒号分隔，返回分割的字符串数组
 	// 分离出分、秒并转换为整型
 	        int minute = Integer.parseInt(timeData[0]);
 	        int second = Integer.parseInt(timeData[1]);
