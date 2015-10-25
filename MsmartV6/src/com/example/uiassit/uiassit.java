@@ -128,8 +128,29 @@ public class uiassit  {
     	
     }
    
-    
-    
+    //装载喜欢歌曲的列表
+   public  static  List<HashMap<String,Object>> map1 = new ArrayList<HashMap<String,Object>>();
+    public   static  List<HashMap<String,Object>>  collectsongname(List<String> ziduan , int size){
+  	  File  file = Environment.getExternalStorageDirectory();
+        List<String> pipeiname = new ArrayList<String>();
+        List<String>  pipeigeshouname = new ArrayList<String>();
+    	  pipeiname = new FunctionSDfilename().getFilesname(file);
+    	  pipeigeshouname = new FunctionSDfilename().getFilesgeshouname(file);
+  	  for( int j = 0 ; j < size ; j++){
+  		  for( int i =0 ; i < pipeiname.size() ; i++)
+  		  if(  (pipeiname.get(i).equals(ziduan.get(j)))  ){
+  			    HashMap<String,Object> map = new HashMap<String,Object>();
+  			    map.put("geming", pipeiname.get(i));
+  			    map.put("geshouming", pipeigeshouname.get(i));
+  			    map1.add(map);
+  			    break;
+  		    }
+  	  }
+  	
+  	return map1;
+  	
+  }
+   
 }
 	
 

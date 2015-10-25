@@ -283,7 +283,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			 collect.setImageResource(R.drawable.heart1);
 			 Log.i(TAG,	 "1");
 			 flagcollectrule =2;
-			 //给我的最爱的列表栏里面添加喜欢的歌曲,采用application
+			 //给我的最爱的列表栏里面添加喜欢的歌曲,采用application，全局对象
 		     chuandishuju shuju = (chuandishuju)getApplicationContext();
 			 shuju.setname(gequmingzi);
 		     

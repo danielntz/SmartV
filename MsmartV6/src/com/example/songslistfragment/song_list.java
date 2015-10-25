@@ -58,7 +58,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		adapter = new gedanlistviewadapter(getActivity(),uiassit.creategedan());
 	    
 		autodata.setThreshold(0);              //输入几个字符开始匹配，暂时是这样 
-		autodata.setAdapter(autoadapter);      
+		autodata.setAdapter(autoadapter);       
 		adapter.clear();                   
 		gedanliebiao.setAdapter(adapter);       
 		adapter.refresh(uiassit.creategedan());

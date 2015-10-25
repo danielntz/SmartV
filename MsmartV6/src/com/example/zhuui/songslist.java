@@ -53,7 +53,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		hideFragments(trans);
 		switch (index) {
 		case 0:
-			wodezuiai = null;
+			wodezuiai = null;                       //如果每次要更新fragment的界面的话,就要设置成null,否则不调用oncreateview函数
 			one.setTextColor(Color.GREEN);
 			if(gequliebiao == null){
 				gequliebiao = new song_list();
@@ -72,7 +72,8 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		   	data.putString("ddd",new chuandishuju().name );
 			
 			 if(wodezuiai == null){
-				 wodezuiai = new favourite_list();	
+				   
+				     wodezuiai = new favourite_list();	        //重新声明一个对象
 				 if( !new chuandishuju().name.equals("yes"))
 					{  
 					   new chuandishuju().flag = 2;

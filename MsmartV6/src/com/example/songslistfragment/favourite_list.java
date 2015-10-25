@@ -1,5 +1,6 @@
 package com.example.songslistfragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 	    private autocompletetextadapter wodezuiaiadapter = null;
 	    private List<String> likesongname ;
 	    private autocompletetextadapter automylike = null;
+	    private   static List<String> collectlistsongname = new ArrayList<String>();   //获得所有添加喜欢的歌曲的集合
 	    
 	   
 	@Override
@@ -46,18 +48,22 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 			 Log.i(TAG, "index :"+ new chuandishuju().flag);
 		}
 		else {       //传递了数据
-			Bundle bundle = this.getArguments();
-			String name = bundle.getString("ddd");  //获得传递过来的歌的名字，然后进行列表刷新
-	//	Log.i(TAG, name);
-	//	likesongname = uiassit.Compare(name);    //装载数据源
-	//	Log.i(TAG, (String) likesongname.get(0).get("geming"));
+		Bundle bundle = this.getArguments();
+		String name = bundle.getString("ddd");  //获得传递过来的歌的名字，然后进行列表刷新
+	    collectlistsongname.add(name);          //把传递过来的歌曲名字，进行收集
+	     for( int j =0 ; j < collectlistsongname.size(); j++){
+	    	   Log.i(TAG, collectlistsongname.get(j));
+	     }
 		automylike = new autocompletetextadapter(getActivity(), uiassit.createautolike(name));
-		gedanadapter = new  gedanlistviewlikeadapter(getActivity(), uiassit.Compare(name));
-		wodezuiaiauto.setThreshold(0);
+		gedanadapter = new  gedanlistviewlikeadapter(getActivity(), uiassit.collectsongname(collectlistsongname,collectlistsongname.size()));
+	//	gedanadapter = new  gedanlistviewlikeadapter(getActivity(), uiassit.Compare(name));
+	    
+        wodezuiaiauto.setThreshold(0);
 		wodezuiaiauto.setAdapter(automylike);
 		gedanadapter.clear();
 		myfavourite.setAdapter(gedanadapter);
-		gedanadapter.refresh(uiassit.Compare(name));
+		gedanadapter.refresh(uiassit.collectsongname(collectlistsongname,collectlistsongname.size()));
+	//	gedanadapter.refresh(uiassit.Compare(name));
 	    myfavourite.setOnItemClickListener(this);
 		}
 	   Log.i(TAG, "index :"+ new chuandishuju().flag);
