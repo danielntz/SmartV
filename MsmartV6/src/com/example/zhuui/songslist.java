@@ -30,6 +30,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 	 private  Button two;
 	 private  Button three;
 	 private String name1;
+	 private  int flag = 0 ;    //用来判断是按下其它的fragment还是直接按下歌曲列表
 	 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -54,6 +55,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		switch (index) {
 		case 0:
 			wodezuiai = null;                       //如果每次要更新fragment的界面的话,就要设置成null,否则不调用oncreateview函数
+		//	flag = 0 ;
 			one.setTextColor(Color.GREEN);
 			if(gequliebiao == null){
 				gequliebiao = new song_list();
@@ -99,6 +101,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 		case 2:
 			 three.setTextColor(Color.GREEN);
 			 wodezuiai = null;
+			// flag = 0;
 			 if(zuheliebiao == null){
 					zuheliebiao = new mix_list();
 					trans.add(R.id.songslist, zuheliebiao);

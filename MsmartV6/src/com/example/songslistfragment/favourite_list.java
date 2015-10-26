@@ -46,14 +46,20 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 		 //获取Activity传递过来的值
 		if(new chuandishuju().flag == 1){ //说明没有传递数据
 			 Log.i(TAG, "index :"+ new chuandishuju().flag);
+			
 		}
 		else {       //传递了数据
 		Bundle bundle = this.getArguments();
 		String name = bundle.getString("ddd");  //获得传递过来的歌的名字，然后进行列表刷新
 	    collectlistsongname.add(name);          //把传递过来的歌曲名字，进行收集
-	     for( int j =0 ; j < collectlistsongname.size(); j++){
-	    	   Log.i(TAG, collectlistsongname.get(j));
-	     }
+	    //我的最爱列表不会显示重复歌曲
+	    if(  collectlistsongname.size()  > 1 ){
+	    		   if( collectlistsongname.get(collectlistsongname.size()-2).equals(collectlistsongname.get(collectlistsongname.size()-1))){
+	    		   collectlistsongname.remove(collectlistsongname.size() -1);
+	    		
+	    		   }
+	      }  
+	    
 		automylike = new autocompletetextadapter(getActivity(), uiassit.createautolike(name));
 		gedanadapter = new  gedanlistviewlikeadapter(getActivity(), uiassit.collectsongname(collectlistsongname,collectlistsongname.size()));
 	//	gedanadapter = new  gedanlistviewlikeadapter(getActivity(), uiassit.Compare(name));
@@ -67,6 +73,8 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 	    myfavourite.setOnItemClickListener(this);
 		}
 	   Log.i(TAG, "index :"+ new chuandishuju().flag);
+	
+	   
 		return  fragment1;
 	}
 
