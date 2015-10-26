@@ -9,8 +9,10 @@ import com.example.uiassit.chuandishuju;
 import com.example.uiassit.gedanlistviewadapter;
 import com.example.uiassit.gedanlistviewlikeadapter;
 import com.example.uiassit.uiassit;
+import com.example.zhuui.zhujiemian;
 import com.jerome.weibo.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -45,7 +47,8 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 			
 		 //获取Activity传递过来的值
 		if(new chuandishuju().flag == 1){ //说明没有传递数据
-			 Log.i(TAG, "index :"+ new chuandishuju().flag);
+			 
+			Log.i(TAG, "index :"+ new chuandishuju().flag);
 			
 		}
 		else {       //传递了数据
@@ -82,7 +85,13 @@ public class favourite_list  extends Fragment implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		  
+        String name = gedanadapter.transit.get(position).get("geming").toString(); 
+		Intent intent1 = new Intent(getActivity(),zhujiemian.class);
+		String geshou = gedanadapter.transit.get(position).get("geshouming").toString();
+		new chuandishuju().setgeshouname(geshou);
+		intent1.putExtra("geming", name);
+		startActivity(intent1);
+		
 	}
       
 	

@@ -26,7 +26,7 @@
         <activity android:name="com.example.zhuui.songslist"></activity>
         <activity android:name="com.example.zhuui.albumlist"></activity>
         <activity android:name="com.example.zhuui.introduce"></activity>
-         <activity android:name="com.example.zhuui.videoshow"></activity>
+         <activity android:name="com.example.zhuui.videoshow" ></activity>
           <activity android:name="com.example.zhuui.zhujiemian"></activity>
            <activity android:name="com.example.zhuui.videoslist"></activity>
            <activity  android:name="com.example.songslistfragment.favourite_list"></activity>

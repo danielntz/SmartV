@@ -1,5 +1,6 @@
 package com.example.viewpager;
 
+import com.example.uiassit.chuandishuju;
 import com.jerome.weibo.R;
 
 import android.content.res.Configuration;
@@ -14,10 +15,13 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class appreciatephoto   extends Fragment{
     
 	private  ImageView rotatephoto; 
+	private  TextView  geshoumingzi;
+	private  String geshouname = "";
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,7 +29,10 @@ public class appreciatephoto   extends Fragment{
 		// TODO Auto-generated method stub
 		 View fragment1 = inflater.inflate(R.layout.fragment2_layout,container, false);
 		 rotatephoto =(ImageView)fragment1.findViewById(R.id.rotatephoto);
-		rotatephoto();
+		 geshoumingzi = (TextView)fragment1.findViewById(R.id.authername);
+		 geshouname = new chuandishuju().getgeshouname();
+		 geshoumingzi.setText(geshouname);
+		 rotatephoto();
 		 return  fragment1;
 	}
 	

@@ -89,9 +89,11 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	private   int flagbofangrule ;    //1 随机播放，2 顺序播放(按照列表的方式) 3 单曲循环 
 	private   int flagcollectrule;    //1 不喜欢 2 喜欢
     private  PopupWindow  introduction;
+    private  PopupWindow  collectlike;
     long starttime ;     //当前线程开启时间
     long endtime  ;      //当前线程结束时间
-    private String gequmingzi;    //获得传递过来的歌曲名字
+    private String gequmingzi = "";    //获得传递过来的歌曲名字
+    private String geshoumingzi= "";  //获得传递过来的歌手名字
     private  TextView  bofangshijian;
     private  TextView  zongshijian;
 	@Override
@@ -131,7 +133,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		//初始化获得传递过来的值
 		Intent intent =getIntent();
 	    gequmingzi = intent.getStringExtra("geming");
-		
+		songtitle.setText(gequmingzi);
 	    bofang.setOnClickListener(this);
 	    zanting.setOnClickListener(this);
 	    xiayishou.setOnClickListener(this);
@@ -193,7 +195,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		
 		 try {
 		 	bofangmusic.start(gequmingzi);
-		  
+		     
 			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
 		//	 zongshijian.setText(bofangmusic.player.getDuration());
 			// new Thread(new seekbartongbu()).start();
@@ -223,7 +225,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		}
 		 break;
 	case R.id.wholezhujiemian:
-		 menupopwindow.dismiss();
+		 if(menupopwindow != null)
+		menupopwindow.dismiss();
 		 break;
 	case R.id.zanting:
 		 if(flag){
@@ -286,6 +289,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			 //给我的最爱的列表栏里面添加喜欢的歌曲,采用application，全局对象
 		     chuandishuju shuju = (chuandishuju)getApplicationContext();
 			 shuju.setname(gequmingzi);
+			 initshoucang();
+			 new Thread (new myshoucang()).start();
+			 
 		     
 		 }
 		 else{
@@ -298,6 +304,11 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	  
 	  
 		   
+	}
+	public void initshoucang(){
+		 View  shoucang = getLayoutInflater().inflate(R.layout.shoucang_layout, null);
+		 collectlike = new PopupWindow(shoucang,500,70);
+		 collectlike.showAtLocation(this.findViewById(R.id.wholezhujiemian), Gravity.CENTER_VERTICAL, 0, -260);//后面两个参数是x，y
 	}
 	
 	public void initjieshaofunction(int select ){
@@ -460,7 +471,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(450);
 				endtime = System.currentTimeMillis();
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
@@ -470,17 +481,44 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 				
 				@Override
 				public void run() {
-					if(introduction != null && introduction.isShowing() && endtime - starttime  - 1200 < 50 && endtime - starttime - 1200 > 0 )
+					if(introduction != null && introduction.isShowing() && endtime - starttime  - 450 < 50 && endtime - starttime - 450 > 0 )
 					 {
 						
 						introduction.dismiss();
 					 }
 					//if(endtime - starttime - 1500 <0 && introduction != null)  
 					//	introduction.dismiss();
+					//introduction.dismiss();
 				}
 			});
 			
 		}	
+		 
+	 }
+	 
+	 public class myshoucang implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			  try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  runOnUiThread(new Runnable(){
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					 if(collectlike != null && collectlike.isShowing()){
+						 collectlike.dismiss();
+					 }
+				}
+				  
+			  });
+		}
 		 
 	 }
 	  
