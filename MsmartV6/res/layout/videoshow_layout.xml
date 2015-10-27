@@ -3,10 +3,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <VideoView   
+  <RelativeLayout   
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/xianshi"
+               > 
+       <VideoView   
              android:id="@+id/showvideo"
              android:layout_width="fill_parent"
              android:layout_height="300dip"/>
+       <Button 
+               android:layout_width="50dip"
+               android:layout_height="wrap_content"
+               android:background="@drawable/shipinbofang"
+               android:layout_marginLeft="2dip"
+               android:id="@+id/bofangmv"
+               android:layout_marginTop="243dip"
+               android:visibility="gone"
+                />
+       <Button    
+                android:layout_width="50dip"
+                android:layout_marginTop="243dip"
+                android:layout_marginLeft="2dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/viewzanting"
+                android:id="@+id/zantingmv"
+                android:visibility="gone"/>
+       <TextView 
+                 android:id="@+id/shengyushijian"
+                 android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="260dip"
+                  android:layout_marginLeft="53dip"
+                  android:text="余时间"
+                  android:textSize="10sp"
+                  android:textColor="#ffffff"
+                  android:visibility="gone"/>
+       <SeekBar    
+                  android:id="@+id/time"
+                  android:layout_width="200dip"
+                  android:layout_height="wrap_content"
+                  android:maxWidth="12dip"
+                  android:maxHeight="12dip"
+                  android:max="100"
+                  android:paddingLeft="15dip"
+                  android:paddingRight="15dip"
+                  android:layout_toRightOf="@id/shengyushijian"
+                  android:layout_marginTop="250dip"
+                  android:visibility="gone"/>
+       <TextView 
+                 android:id="@+id/zongshijian"
+                 android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="总时间"
+                  android:layout_marginTop="260dip"
+                  android:layout_toRightOf="@+id/time"
+                  android:textSize="10sp"
+                  android:textColor="#ffffff"
+                  android:visibility="gone"/>
+       <TextView   
+                   android:id="@+id/max"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/max"
+                   android:layout_below="@id/zongshijian"
+                   android:layout_alignParentRight="true"
+                   android:visibility="gone"/>
+  </RelativeLayout>
    <LinearLayout  
                  android:layout_width="fill_parent"
                  android:layout_height="wrap_content"
@@ -18,7 +81,8 @@
              android:layout_height="wrap_content"
              android:text="相关信息"
              android:textSize="20sp"
-             android:gravity="center"/>
+             android:gravity="center"
+             android:background="@drawable/textview_selector"/>
     <TextView  
               android:id="@+id/aboutmv"
               android:layout_width="0dip"
@@ -26,7 +90,8 @@
               android:layout_weight="1"
               android:text="相关mv"
               android:textSize="20sp"
-              android:gravity="center"/>
+              android:gravity="center"
+              android:background="@drawable/textview_selector"/>
     </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/about"

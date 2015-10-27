@@ -18,9 +18,10 @@ public class FunctionM {
 	public   List<String>gequmingziliebiao = new ArrayList<String>();
 	public  List<String> geshounameliebiao = new ArrayList<String>();
 	public  String wholeaddress = null;
-	public FunctionM(){
+	    public FunctionM()
+	      {
 	    	this.player = null;
-	    }
+	      }
 	    
 	    public  FunctionM( MediaPlayer  player){
 	    	

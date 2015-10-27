@@ -85,15 +85,7 @@ public class songslist  extends  FragmentActivity implements OnClickListener{
 					trans.add(R.id.songslist, wodezuiai);
 				}
 				/*else{
-					//wodezuiai.setArguments(data);
-				
-					if(!new chuandishuju().name.equals("yes"))
-						{  
-						   new chuandishuju().flag = 2;
-						   Log.isLoggable(TAG, new chuandishuju().flag);
-						   wodezuiai.setArguments(data);
-						}
-					 trans.show(wodezuiai);
+				         trans.show(wodezuiai);
 				}*/
 	
 			trans.commit();

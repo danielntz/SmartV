@@ -197,7 +197,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 	bofangmusic.start(gequmingzi);
 		     
 			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
-		//	 zongshijian.setText(bofangmusic.player.getDuration());
+		   Log.i(TAG, "进度"+bofangmusic.player.getDuration());
+			 //	 zongshijian.setText(bofangmusic.player.getDuration());
 			// new Thread(new seekbartongbu()).start();
 			new Thread (new Runnable(){
 
