@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.Mfunction.FunctionV;
+import com.example.adjustscreen.adjustscreen;
+import com.example.uiassit.haomiaotoshijian;
 import com.example.uiassit.mvviewpager;
 import com.example.uiassit.uiassit;
 import com.example.viewpager.aboutmv;
 import com.example.viewpager.aboutxinxi;
 import com.jerome.weibo.*;
+import com.jerome.weibo.R.layout;
 
 import android.R.color;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -48,13 +52,18 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 	  private  TextView  time1;
 	  private  TextView  time2;
 	  private  TextView  max;
-	  private   VideoView  screen ;
+	  private   adjustscreen  screen ;
 	  private   FunctionV  screenvideo = new FunctionV() ;
+	  private   boolean  fullscreen = false;     //false 没有全屏， true全屏
+	  private  long wholetime ;       //获得视频的总长度毫秒数
+	  private  String formattime;     //转换为时间格式的字符串
+	  private  int  min = 0;  //播放时间的分
+	  private  int  second = 0; //播放时间的秒
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);    //取消标题
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);       //取消标题
 		setContentView(R.layout.videoshow_layout);
 		viewpager = (ViewPager)findViewById(R.id.about);
 		aboutxinxi = (TextView)findViewById(R.id.aboutinformation);
@@ -65,17 +74,26 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		time = (SeekBar)findViewById(R.id.time);
 		time1 = (TextView)findViewById(R.id.shengyushijian);
 		time2 = (TextView)findViewById(R.id.zongshijian);
-		screen = (VideoView)findViewById(R.id.showvideo);
+		screen = (adjustscreen)findViewById(R.id.showvideo);
 		max = (TextView )findViewById(R.id.max);
-	
+	    chushihua();
 	    bofangmv.setOnClickListener(this);
 	    zantingmv.setOnClickListener(this);
 	    showfunction.setOnClickListener(this);
 		ininitviewpager();
+		
 		viewpager.setOnPageChangeListener(this);
 		aboutxinxi.setOnClickListener(this);
 		aboutmv.setOnClickListener(this);
 		time.setOnSeekBarChangeListener(this);
+		max.setOnClickListener(this);
+	}
+	//初始化videoview的播放大小
+	public void chushihua(){
+		 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(480, 300);  //videoview播放视频的大小
+		 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		 screen.setLayoutParams(params);
+		 
 	}
 	//加载viewpager
 	public void ininitviewpager()
@@ -128,7 +146,25 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 aboutxinxi.setTextColor(Color.BLUE);
 			 aboutmv.setTextColor(Color.BLACK);
 			 break;
-
+		case R.id.max:  //最大化
+			// Intent inten1 =new Intent(this,maxscreen.class);
+			// startActivity(inten1);
+			if(!fullscreen){
+			@SuppressWarnings("deprecation")
+			 RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT); 
+			 layoutparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+			 layoutparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			 layoutparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			 layoutparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			 screen.setLayoutParams(layoutparams);
+			 fullscreen = true;   }
+			else{
+				 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(480, 320);
+				 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+				 screen.setLayoutParams(params);
+				 fullscreen = false;
+			}
+			 break;
 		case R.id.aboutmv:
 			 viewpager.setCurrentItem(1);
 			 aboutmv.setTextColor(Color.BLUE);
@@ -139,8 +175,10 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 uiassit.disappear(bofangmv);
 			 flagbutton  =1;
 			 screenvideo.start(screen);
+			
 		//	 time.setMax(screen.getDuration());
 			 screen.setOnPreparedListener(this);
+			 
 			// Log.i(TAG,"进度"+screen.getDuration() );
 			 new Thread(new Runnable(){
 
@@ -151,6 +189,20 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 						 
 						try {
 							   time.setProgress(screen.getCurrentPosition());
+							   second ++;
+							   runOnUiThread(new Runnable(){
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									if(second == 60){
+										min ++ ;
+										second = 0;
+									}
+									time1.setText("0"+""+min+":"+""+second);
+								}								   
+							   });
+							   
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -213,25 +265,32 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		}
 	}
 	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,
+	public void onProgressChanged(SeekBar seekBar, int progress,  //数值的改变
 			boolean fromUser) {
+		// TODO Auto-generated method stub
+	     	
+	}
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {      //开始拖动
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
+	public void onStopTrackingTouch(SeekBar seekBar) {      //停止拖动
 		// TODO Auto-generated method stub
-		time.setProgress(screen.getCurrentPosition());
-	}
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-		 screenvideo.start(screen);
+	
+		screen.seekTo(time.getProgress());                 //播放制定的位置
 	}
 	@Override
 	public void onPrepared(MediaPlayer mp) {
 		// TODO Auto-generated method stub
 		  time.setMax(screen.getDuration());
-		  Log.i(TAG, "进度"+screen.getDuration());
+		  wholetime = screen.getDuration();
+		  formattime =  new haomiaotoshijian().formattime(wholetime);
+		  time2.setText(formattime);    //显示总时间
+		  time1.setText("00:00");       //显示播放时间
 	}
+	
+	
+	
 }
