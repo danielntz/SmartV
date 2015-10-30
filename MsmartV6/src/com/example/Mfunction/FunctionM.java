@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.uiassit.haomiaotoshijian;
+
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -49,6 +51,7 @@ public class FunctionM {
 	     }
 	      this.player.setDataSource("/sdcard/"+wholeaddress);
 		  this. player.prepare();
+		
 		 
 		  }
 		  this.player.start();

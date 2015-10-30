@@ -31,5 +31,12 @@
              
               android:textSize="15sp"
               android:textColor="#FFFFFFFF"/>
+    <ImageView   
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/xialagongneng"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="220dip"
+                android:background="@drawable/downarrow"/>
    </RelativeLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ import com.example.songslistfragment.favourite_list;
 import com.example.uiassit.chuandishuju;
 import com.example.uiassit.gridvietianchong;
 import com.example.uiassit.gridviewadapter;
+import com.example.uiassit.haomiaotoshijian;
 import com.example.uiassit.mypageeradapter;
 import com.example.uiassit.uiassit;
 import com.example.viewpager.appreciatephoto;
@@ -56,7 +57,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class zhujiemian  extends FragmentActivity implements OnClickListener, OnTouchListener{
+public class zhujiemian  extends FragmentActivity implements OnClickListener, OnTouchListener, OnSeekBarChangeListener{
     
 	private static final String TAG = null;
 	private   LinearLayout linearlayout;
@@ -96,6 +97,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
     private String geshoumingzi= "";  //获得传递过来的歌手名字
     private  TextView  bofangshijian;
     private  TextView  zongshijian;
+    private  long   longshijian;       //获得相对应歌曲的总毫秒数
+    private  String  longshijian1;     //转化成时间格式
+    private  boolean   judge =  false;
 	@Override
 	
 	
@@ -145,6 +149,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
         gongneng.setOnClickListener(this);
         collectlist.setOnClickListener(this);
         collectfasong.setOnClickListener(this);
+        seekbar.setOnSeekBarChangeListener(this);
      //   seekbar.setOnSeekBarChangeListener(new seekbarprogress());
 }
 
@@ -183,6 +188,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	   
 	   case R.id.suoxiao:
 		    finish(); 
+		    bofangmusic.player.stop();     //stop后需要prepare才行
+		    bofangmusic.player.reset();    //处在空闲状态
 		    break;
 	case R.id.bofang:
 		 if(!flag) 
@@ -198,7 +205,12 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		     
 			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
 		   Log.i(TAG, "进度"+bofangmusic.player.getDuration());
-			 //	 zongshijian.setText(bofangmusic.player.getDuration());
+		    longshijian = bofangmusic.player.getDuration();
+		      longshijian1 = new haomiaotoshijian().formattime(longshijian);
+		      zongshijian.setText(longshijian1);
+		     if(!judge)
+		      bofangshijian.setText("00:00");
+			 
 			// new Thread(new seekbartongbu()).start();
 			new Thread (new Runnable(){
 
@@ -208,8 +220,10 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 					while(true){
 					
 					try {
-						seekbar.setProgress(bofangmusic.player.getCurrentPosition()); //获得当前播放的进度值
+					
+						{seekbar.setProgress(bofangmusic.player.getCurrentPosition()); }//获得当前播放的进度值
 					 //   bofangshijian.setText(bofangmusic.player.getCurrentPosition());
+						
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -234,6 +248,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			 uiassit.disappear(zanting);
              uiassit.show(bofang);
              flag = false;
+             judge = true;
 		 }
 		bofangmusic.pause();
 		 
@@ -346,16 +361,17 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		//menupopwindow.setFocusable(true);                                           //获取弹出菜单的焦点
 		//menupopwindow.setTouchable(true);
 	    //menupopwindow.setOutsideTouchable(true);
-		gridview.setOnItemClickListener(new OnItemClickListener() {
+	/*	gridview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "sdf", 0).show();
+				//Toast.makeText(getApplicationContext(), "sdf", 0).show();
+				Log.i(TAG, "dsfdsf");
 			}
 			
-		});
+		});*/
      	menupopwindow.showAtLocation(this.findViewById(R.id.wholezhujiemian), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //弹出的位置
 	  }
 	  
@@ -418,7 +434,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		  
 	  }
 	 
-	 public class seekbarprogress implements OnSeekBarChangeListener{
+	/* public class seekbarprogress implements OnSeekBarChangeListener{
 
 		 
 		@Override
@@ -465,7 +481,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 			
 		}
 		 
-	 }
+	 }*/
 	 
 	 public class myintroduction implements Runnable{
 
@@ -522,6 +538,31 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		}
 		 
 	 }
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		// TODO Auto-generated method stub
+		  String nowtime = new haomiaotoshijian().formattime(progress);
+		  if(nowtime.contains(":")){
+			  bofangshijian.setText(nowtime);
+			  }
+		  else
+			 bofangshijian.setText("00:"+nowtime); 	
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+		 
+		  bofangmusic.player.seekTo(seekbar.getProgress());
+	}
 	  
 		  
 	  

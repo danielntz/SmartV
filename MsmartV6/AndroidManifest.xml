@@ -30,6 +30,7 @@
           <activity android:name="com.example.zhuui.zhujiemian"></activity>
            <activity android:name="com.example.zhuui.videoslist"></activity>
            <activity android:name="com.example.zhuui.maxscreen"></activity>
+           <activity android:name="com.example.zhuui.songschoice"></activity>
            <activity  android:name="com.example.songslistfragment.favourite_list"></activity>
     </application>
 

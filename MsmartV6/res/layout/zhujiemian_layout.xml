@@ -89,14 +89,15 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="8dip"
-                   android:text="时间"
+                   android:layout_marginLeft="5dip"
+                   android:text="--"
                    android:textColor="#FFFFFFFF"
                    android:textSize="10sp" 
                     />
          
         <SeekBar    
                      android:id="@+id/progress_bar"
-                     android:layout_width="270dip"
+                     android:layout_width="260dip"
                      android:layout_height="wrap_content"
                      android:maxHeight="20dip"
                      android:minHeight="15dip"
@@ -110,8 +111,9 @@
                    android:id="@+id/zongshijian"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="总时间"
+                   android:text="--"
                    android:textColor="#FFFFFFFF"
+                   
                    android:layout_marginTop="8dip"
                    android:textSize="10sp" 
                     />

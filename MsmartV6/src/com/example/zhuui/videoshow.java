@@ -14,6 +14,7 @@ import com.jerome.weibo.*;
 import com.jerome.weibo.R.layout;
 
 import android.R.color;
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -59,7 +60,9 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 	  private  String formattime;     //转换为时间格式的字符串
 	  private  int  min = 0;  //播放时间的分
 	  private  int  second = 0; //播放时间的秒
-	@Override
+	  private  boolean flagshijiangenzong ;     //暂停时，播放时间不走， 开始时播放时间同步,利用线程中的循环来实现
+	 
+	  @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -175,7 +178,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 uiassit.disappear(bofangmv);
 			 flagbutton  =1;
 			 screenvideo.start(screen);
-			
+			 flagshijiangenzong = true;
 		//	 time.setMax(screen.getDuration());
 			 screen.setOnPreparedListener(this);
 			 
@@ -185,25 +188,12 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					while(true){
+					     
+					while(flagshijiangenzong ){
 						 
 						try {
 							   time.setProgress(screen.getCurrentPosition());
-							   second ++;
-							   runOnUiThread(new Runnable(){
-
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									if(second == 60){
-										min ++ ;
-										second = 0;
-									}
-									time1.setText("0"+""+min+":"+""+second);
-								}								   
-							   });
-							   
-							Thread.sleep(1000);
+					       	   Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -220,6 +210,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 uiassit.disappear(zantingmv);
 			 flagbutton  = 0;
 			 screenvideo.pause(screen);
+	
 			 break;
 			 
 		case R.id.xianshi:
@@ -265,10 +256,15 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		}
 	}
 	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,  //数值的改变
+	public void onProgressChanged(SeekBar seekBar, int progress,  //进度条的数值的改变
 			boolean fromUser) {
 		// TODO Auto-generated method stub
-	     	
+	      String nowtime = new haomiaotoshijian().formattime(progress);
+		  if(nowtime.contains(":")){
+			  time1.setText(nowtime);
+			  }
+		  else
+			 time1.setText("00:"+nowtime); 	
 	}
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {      //开始拖动
@@ -280,12 +276,13 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		// TODO Auto-generated method stub
 	
 		screen.seekTo(time.getProgress());                 //播放制定的位置
+		
 	}
 	@Override
 	public void onPrepared(MediaPlayer mp) {
 		// TODO Auto-generated method stub
 		  time.setMax(screen.getDuration());
-		  wholetime = screen.getDuration();
+		  wholetime = screen.getDuration();           //获得时间的总长度
 		  formattime =  new haomiaotoshijian().formattime(wholetime);
 		  time2.setText(formattime);    //显示总时间
 		  time1.setText("00:00");       //显示播放时间
