@@ -19,15 +19,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class gedanlistviewadapter  extends BaseAdapter implements  android.view.View.OnClickListener{
+public class gedanlistviewadapter  extends BaseAdapter implements  android.view.View.OnClickListener, OnItemClickListener{
       
 	  private static final String TAG = null;
 	  public List<HashMap<String,Object>> transit = new ArrayList<HashMap<String,Object>>();
@@ -107,15 +110,19 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 			 //	this.inflater1 = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		     Button buttoncancel;
 		      
-		   	 this.inflater1 = LayoutInflater.from(context);
+		      this.inflater1 = LayoutInflater.from(context);
 			  songselect = inflater1.inflate(R.layout.songschoice_layout, null); 
-		      tanchukuang = new PopupWindow(songselect, 300, 300);
+			  GridView  gridview1 = (GridView) songselect.findViewById(R.id.songfunction);
+			  songuiadapter hhh2= new songuiadapter(new uiassit().tubiao(), context);
+			  gridview1.setAdapter(hhh2);
+		      tanchukuang = new PopupWindow(songselect, 480, 400);
 		      buttoncancel = (Button)songselect.findViewById(R.id.cancel);
 			  tanchukuang.showAtLocation(geming, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-			  tanchukuang.setTouchable(true);
+			  tanchukuang.setTouchable(true);                //获取菜单的焦点
 		      tanchukuang.setTouchable(true);
-		      tanchukuang.setOutsideTouchable(false);
+		      tanchukuang.setOutsideTouchable(true);
 		      buttoncancel.setOnClickListener(this);
+		      gridview1.setOnItemClickListener(this);
 			 break;
 		case R.id.cancel:
 			// Toast.makeText(context, "sdfsdf", 0).show();
@@ -123,6 +130,13 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		    	   tanchukuang.dismiss();
 		     }
 		}
+	}
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		    Toast.makeText(context, "sdfsd", 0).show();
+		// TODO Auto-generated method stub
+		
 	}
 
 	

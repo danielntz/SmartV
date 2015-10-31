@@ -150,6 +150,19 @@ public class uiassit  {
   	return map1;
   	
   }
+   //给歌曲列表中的箭头添加弹出菜单
+   //  public static List<HashMap<String,Object>> songgongneng = new ArrayList<HashMap<String,Object>>();
+     public String name3[] = new String[]{"删除","跟唱","分享"};
+     public List<HashMap<String,Object>> tubiao(){
+    	 List<HashMap<String,Object>> songgongneng = new ArrayList<HashMap<String,Object>>();
+    	 for(int i = 0 ;i <3 ; i++){
+    		    HashMap<String, Object> hhh1 = new HashMap<String, Object>();
+    		    hhh1.put("gongneng", name3[i]);	
+    		    songgongneng.add(hhh1);
+    	   }
+    	   return songgongneng;
+     }
+     
    
 }
 	

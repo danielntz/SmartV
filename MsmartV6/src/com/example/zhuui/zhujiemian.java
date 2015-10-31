@@ -360,7 +360,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		menupopwindow = new PopupWindow(tanchuview,500,350);                          //设置弹出界面，宽度，高度
 		//menupopwindow.setFocusable(true);                                           //获取弹出菜单的焦点
 		//menupopwindow.setTouchable(true);
-	    //menupopwindow.setOutsideTouchable(true);
+	   // menupopwindow.setOutsideTouchable(true);
 	/*	gridview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
