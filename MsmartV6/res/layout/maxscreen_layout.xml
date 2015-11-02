@@ -3,9 +3,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-     <VideoView   
+   <RelativeLayout   
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"  
+                  android:id="@+id/baohan">
+    <com.example.adjustscreen.adjustscreen
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:id="@+id/enlarge"/>
- 
+              android:id="@+id/enlarge">
+     </com.example.adjustscreen.adjustscreen>
+    
+     <RelativeLayout   
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginTop="266dip"
+                 android:layout_marginLeft="5dip"
+                 android:id="@+id/gongneng"
+                
+                >
+               
+         <Button   
+                   android:layout_width="50dip"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/shipinbofang"
+                   android:id="@+id/maxbofang"
+                   android:visibility="gone"
+                   />
+         <Button   
+                  android:layout_width="50dip"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/viewzanting"
+                   android:id="@+id/maxzanting"  
+                   android:visibility="gone"
+                     />
+         </RelativeLayout>
+         <RelativeLayout  
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"  
+                    android:layout_marginTop="286dip"
+                    android:layout_marginLeft="65dip"
+                    android:id="@+id/shijian"
+                    android:visibility="gone">
+             
+             <TextView    
+                       android:id="@+id/bofangshijian"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="--" 
+                     
+                       android:textSize="10sp"
+                       android:textColor="#ffffff"/>
+             
+                <TextView    
+                       android:id="@+id/zantinshijian"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="--" 
+                        
+                       android:layout_marginLeft="440dip"
+                       android:textSize="10sp"
+                       android:textColor="#ffffff"/>
+            </RelativeLayout>
+         <SeekBar   
+                  android:id="@+id/maxseekbar"
+                  android:layout_width="410dip"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="90dip"
+                  android:max="100"
+                  android:maxHeight="12dip"
+                  android:minHeight="12dip"
+                  android:paddingLeft="15dip"
+                  android:paddingRight="15dip"
+                  android:layout_marginTop="278dip"
+                  android:visibility="gone"
+                  />
+         
+    
+  </RelativeLayout>
 </LinearLayout>

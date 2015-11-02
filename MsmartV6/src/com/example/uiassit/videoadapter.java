@@ -71,7 +71,7 @@ public class videoadapter  extends BaseAdapter{
 		}
 		else{}
 		
-	    adjustbitmap = ThumbnailUtils.extractThumbnail(tupian1.get(position), 160, 120);  //对图片的缩略
+	    adjustbitmap = ThumbnailUtils.extractThumbnail(tupian1.get(position), 160, 120);  //对图片的缩略,宽，高
 		tupian.setImageBitmap(adjustbitmap);
 		videoname.setText(video.get(position).get("videoname").toString());
 		videogeshouname.setText(video.get(position).get("videogeshouname").toString());

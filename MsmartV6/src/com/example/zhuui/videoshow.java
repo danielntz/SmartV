@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.Mfunction.FunctionV;
 import com.example.adjustscreen.adjustscreen;
+import com.example.uiassit.chuandishuju;
 import com.example.uiassit.haomiaotoshijian;
 import com.example.uiassit.mvviewpager;
 import com.example.uiassit.uiassit;
@@ -150,9 +151,15 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 aboutmv.setTextColor(Color.BLACK);
 			 break;
 		case R.id.max:  //最大化
-			// Intent inten1 =new Intent(this,maxscreen.class);
-			// startActivity(inten1);
-			if(!fullscreen){
+			
+			 Intent inten1 =new Intent(this,maxscreen.class);
+			 startActivity(inten1);
+		     //给大屏幕传递数值，全局对象，在大屏幕是调用此对象的信息
+			 new  chuandishuju().setMediaplayer(screen);
+			 new  chuandishuju().setzongshijian(screen.getCurrentPosition());
+			  
+			 //不用打开另一个Activity直接在此Activity上进行操作
+			/*	if(!fullscreen){
 			@SuppressWarnings("deprecation")
 			 RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT); 
 			 layoutparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -166,7 +173,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 				 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 				 screen.setLayoutParams(params);
 				 fullscreen = false;
-			}
+			}*/
 			 break;
 		case R.id.aboutmv:
 			 viewpager.setCurrentItem(1);
@@ -181,7 +188,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 flagshijiangenzong = true;
 		//	 time.setMax(screen.getDuration());
 			 screen.setOnPreparedListener(this);
-			 
+			
 			// Log.i(TAG,"进度"+screen.getDuration() );
 			 new Thread(new Runnable(){
 
@@ -193,6 +200,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 						 
 						try {
 							   time.setProgress(screen.getCurrentPosition());
+							   
 					       	   Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -260,6 +268,8 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			boolean fromUser) {
 		// TODO Auto-generated method stub
 	      String nowtime = new haomiaotoshijian().formattime(progress);
+	      new chuandishuju().settimeprogress(progress);
+	    
 		  if(nowtime.contains(":")){
 			  time1.setText(nowtime);
 			  }
@@ -276,6 +286,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		// TODO Auto-generated method stub
 	
 		screen.seekTo(time.getProgress());                 //播放制定的位置
+	   
 		
 	}
 	@Override
@@ -283,6 +294,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		// TODO Auto-generated method stub
 		  time.setMax(screen.getDuration());
 		  wholetime = screen.getDuration();           //获得时间的总长度
+		  new chuandishuju().setwholetime(wholetime); //保存传递的总时间数据
 		  formattime =  new haomiaotoshijian().formattime(wholetime);
 		  time2.setText(formattime);    //显示总时间
 		  time1.setText("00:00");       //显示播放时间
