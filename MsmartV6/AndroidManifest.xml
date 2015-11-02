@@ -29,8 +29,8 @@
          <activity android:name="com.example.zhuui.videoshow" ></activity>
           <activity android:name="com.example.zhuui.zhujiemian"></activity>
            <activity android:name="com.example.zhuui.videoslist"></activity>
-           <activity android:name="com.example.zhuui.maxscreen"></activity>
-           <activity android:name="com.example.zhuui.songschoice"></activity>
+           <activity android:name="com.example.zhuui.maxscreen" android:screenOrientation="landscape"></activity>
+           <activity android:name="com.example.zhuui.songschoice" android:theme="@android:style/Theme.Translucent"></activity>
            <activity  android:name="com.example.songslistfragment.favourite_list"></activity>
     </application>
 

@@ -108,7 +108,9 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		    break;
 		case R.id.xialagongneng:
 			 //	this.inflater1 = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		     Button buttoncancel;
+		    Intent intent = new Intent(context,songschoice.class);
+		    context.startActivity(intent);
+			/*   Button buttoncancel;
 		      
 		      this.inflater1 = LayoutInflater.from(context);
 			  songselect = inflater1.inflate(R.layout.songschoice_layout, null); 
@@ -122,7 +124,7 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		      tanchukuang.setTouchable(true);
 		      tanchukuang.setOutsideTouchable(true);
 		      buttoncancel.setOnClickListener(this);
-		      gridview1.setOnItemClickListener(this);
+		      gridview1.setOnItemClickListener(this);*/
 			 break;
 		case R.id.cancel:
 			// Toast.makeText(context, "sdfsdf", 0).show();

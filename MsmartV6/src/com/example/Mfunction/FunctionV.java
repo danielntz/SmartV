@@ -15,7 +15,7 @@ public class FunctionV implements OnPreparedListener {
 	 
 	  public  void start(VideoView showmv){
 		    if(this.bofang == 0){
-		      showmv.setVideoPath("/sdcard/see you again.mp4"); //设置本地资源路径
+		      showmv.setVideoPath("/sdcard/Wiz Khalifa-See you again.mp4"); //设置本地资源路径
 			  showmv.requestFocus();    //设置焦点
 			   this.bofang = 1 ;
 		    }

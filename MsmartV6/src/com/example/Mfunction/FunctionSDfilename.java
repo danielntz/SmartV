@@ -63,5 +63,50 @@ public class FunctionSDfilename {
 		    return filesgeshouname;
 		    
 	   }
+	   //获得视频的名字
+	   public List<String> getFilesnamevideo(File SDpath){
+			 
+		   File[] files = SDpath.listFiles();   //获得SDpath路径下的文件
+		  
+		  if(files != null){
+			  for(File file : files){
+				  if(file.isDirectory()){   //如果地址是文件夹
+					  //这里可以查找文件夹内的文件，使用递归
+				  }
+				  else{
+					  String filename = file.getName(); //得到文件的名字
+					  if(filename.endsWith(".mp4")){
+						 String zhenname = filename.substring(filename.indexOf("-")+1,filename.lastIndexOf(".")).toString();
+						 filesname.add(zhenname);
+					  }
+					  
+				  }
+			  }
+			  return filesname;
+		  }
+		   return filesname;
+     }
+	   //获得视频歌手名字资源
+	   public  List<String> getFilesgeshounamevideo(File SDpathgeshou){
+		    File[] file = SDpathgeshou.listFiles();
+		    if(file != null){
+		    	for(File file1 : file){
+		    		if(file1.isDirectory()){   //如果地址是文件夹
+						  //这里可以查找文件夹内的文件，使用递归
+					  }
+					  else{
+						  String filename = file1.getName(); //得到文件的名字
+						  if(filename.endsWith(".mp4")){
+							
+							  String zhenname = filename.substring(0,filename.indexOf("-")).toString();
+							 filesgeshouname.add(zhenname);
+						  }
+		    	}
+		    }
+		    	return filesgeshouname;
+	   }
+		    return filesgeshouname;
+		    
+	   }
 	
 }

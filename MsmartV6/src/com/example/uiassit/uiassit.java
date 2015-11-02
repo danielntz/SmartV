@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.Mfunction.FunctionSDfilename;
+import com.example.Mfunction.Functiongetfilename;
 import com.jerome.weibo.R;
 
 import android.app.Activity;
@@ -22,7 +23,7 @@ public class uiassit  {
 	  static String zhuanjiname = "我是歌手";
 	  public static int[] photo = new int[]{R.drawable.xiaotubiao,R.drawable.xiaotubiao,R.drawable.xiaotubiao};
 	  static String[] name = new String[]{"歌手："+ songsname,"专辑 ："+ zhuanjiname,"相似单曲电台"};
-	uiassit(){
+	public uiassit(){
 		
 	}
 	
@@ -163,6 +164,23 @@ public class uiassit  {
     	   return songgongneng;
      }
      
+   //把sdcard 中的所有MP4文件转载到listview中
+     public List<HashMap<String,Object>> videozu = new ArrayList<HashMap<String,Object>>();
+     public    List<HashMap<String,Object>> videoname(){
+    	  File file  = Environment.getExternalStorageDirectory();
+    	  List<String> videoname = new ArrayList<String>();
+    	  List<String> videogeshouname = new ArrayList<String>();
+    	  videoname = new FunctionSDfilename().getFilesnamevideo(file);
+    	  videogeshouname = new FunctionSDfilename().getFilesgeshounamevideo(file);
+    	  for(int i = 0 ; i < videoname.size(); i++){
+    		  HashMap<String,Object> tianjia = new HashMap<String,Object>();
+    		  tianjia.put("videoname", videoname.get(i));
+    		  tianjia.put("videogeshouname", videogeshouname.get(i));
+    		  videozu.add(tianjia);
+    		  
+    	  }
+    	  return videozu;
+      }
    
 }
 	
