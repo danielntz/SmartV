@@ -1,6 +1,7 @@
 package com.example.zhuui;
 
 import com.example.Mfunction.FunctionfirstImage;
+import com.example.uiassit.chuandishuju;
 import com.example.uiassit.uiassit;
 import com.example.uiassit.videoadapter;
 import com.jerome.weibo.*;
@@ -11,6 +12,7 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 public class videoslist  extends Activity implements OnItemClickListener{
 
+	private static final String TAG = null;
 	private ListView showvideo;
 	private videoadapter  adapter;
 	private TextView zonggeshu;
@@ -46,6 +49,14 @@ public class videoslist  extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
+		
+		//保存当前按下列表的视频信息数据和视频歌手数据
+		 String shipinname = adapter.video.get(position).get("videoname").toString();
+		 String shipingeshouname = adapter.video.get(position).get("videogeshouname").toString();
+		 new chuandishuju().setname(shipinname);
+		 new chuandishuju().setgeshouname(shipingeshouname);
+	//	 Log.i(TAG, new chuandishuju().getname());
+	//	 Log.i(TAG, new chuandishuju().getgeshouname());
 		 if(parent == showvideo){
 			 Intent intent = new Intent(this,videoshow.class);
 			 startActivity(intent);

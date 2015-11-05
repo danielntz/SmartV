@@ -50,7 +50,7 @@ public class maxscreen extends Activity implements OnPreparedListener, OnClickLi
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);       //取消标题
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //全屏
 		setContentView(R.layout.maxscreen_layout);
-		//large =(adjustscreen) findViewById(R.id.enlarge);
+		large =(adjustscreen) findViewById(R.id.enlarge);
 		shijianbaozhi = (RelativeLayout)findViewById(R.id.shijian);
 		gongnengbiaozhi = (RelativeLayout)findViewById(R.id.gongneng);
 		jindu = (SeekBar)findViewById(R.id.maxseekbar);
@@ -66,7 +66,7 @@ public class maxscreen extends Activity implements OnPreparedListener, OnClickLi
 		maxzanting.setOnClickListener(this);
 	//	large.setOnPreparedListener(this);
 	//	large.setOnClickListener(this);
-		large = new chuandishuju().getMediaPlayer();
+	//	large = new chuandishuju().getMediaPlayer();      //把当前播放的adjustscreen传递给maxscreen
 		jindu.setOnSeekBarChangeListener(this);
 		zongshi = righttime(new chuandishuju().getwholetime());
 		zongshijian.setText(zongshi);
@@ -78,9 +78,8 @@ public class maxscreen extends Activity implements OnPreparedListener, OnClickLi
 			 }
 		  else
 			 bofangshijian.setText("00:"+bofangtime); 	
-	  //   bofang.start(large);
-		  large.seekTo(jindu.getProgress());
-	    new Thread(new Runnable(){
+		     bofang.start(large,new chuandishuju().getname());
+	  /*  new Thread(new Runnable(){
 
 			@Override
 			public void run() {
@@ -98,14 +97,14 @@ public class maxscreen extends Activity implements OnPreparedListener, OnClickLi
 				}
 			}
 			 
-		 }).start();
+		 }).start();*/
 	}
    
 	//视频加载
 	@Override
 	public void onPrepared(MediaPlayer mp) {
 		// TODO Auto-generated method stub
-		   
+     // large.seekTo(jindu.getProgress());
 	}
 	
 	//改变时间格式

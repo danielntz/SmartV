@@ -21,7 +21,7 @@ public class videoadapter  extends BaseAdapter{
     
 	    LayoutInflater  inflater;
 	    Context context ;
-	    List<HashMap<String,Object>> video = new ArrayList<HashMap<String,Object>>();
+	    public  List<HashMap<String,Object>> video = new ArrayList<HashMap<String,Object>>();
 	    private ImageView tupian;
 	    private TextView  videoname;
 	    private TextView  videogeshouname;

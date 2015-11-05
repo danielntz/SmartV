@@ -157,6 +157,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		     //给大屏幕传递数值，全局对象，在大屏幕是调用此对象的信息
 			 new  chuandishuju().setMediaplayer(screen);
 			 new  chuandishuju().setzongshijian(screen.getCurrentPosition());
+			// screenvideo.pause(screen);
 			  
 			 //不用打开另一个Activity直接在此Activity上进行操作
 			/*	if(!fullscreen){
@@ -184,7 +185,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 uiassit.show(zantingmv);
 			 uiassit.disappear(bofangmv);
 			 flagbutton  =1;
-			 screenvideo.start(screen);
+			 screenvideo.start(screen,new chuandishuju().getname());
 			 flagshijiangenzong = true;
 		//	 time.setMax(screen.getDuration());
 			 screen.setOnPreparedListener(this);

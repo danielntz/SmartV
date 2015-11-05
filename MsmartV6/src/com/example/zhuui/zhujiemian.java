@@ -91,8 +91,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	private   int flagcollectrule;    //1 不喜欢 2 喜欢
     private  PopupWindow  introduction;
     private  PopupWindow  collectlike;
-    long starttime ;     //当前线程开启时间
-    long endtime  ;      //当前线程结束时间
+    long starttime ;                     //当前线程开启时间
+    long endtime  ;                     //当前线程结束时间
     private String gequmingzi = "";    //获得传递过来的歌曲名字
     private String geshoumingzi= "";  //获得传递过来的歌手名字
     private  TextView  bofangshijian;
