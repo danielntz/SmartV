@@ -30,18 +30,21 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class gedanlistviewadapter  extends BaseAdapter implements  android.view.View.OnClickListener, OnItemClickListener{
       
 	  private static final String TAG = null;
 	  public List<HashMap<String,Object>> transit = new ArrayList<HashMap<String,Object>>();
-	  private  TextView  geming;
-	  private  TextView  geshou;
+	//  private  TextView  geming;
+	//  private  TextView  geshou;
 	  private LayoutInflater   inflater = null;
 	  private  Context context;
-	  private  ImageView  arrow;
+	//  private  ImageView  arrow;
 	  private  PopupWindow  tanchukuang;
 	  private  LayoutInflater inflater1 = null;
 	  private  View  songselect;
+	  private  ViewHolder  holder = null;
 	  public gedanlistviewadapter(){
 		  
 	  }
@@ -51,7 +54,12 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		       this.context = context;
 		       this.inflater  = LayoutInflater.from(context);
 	 }
-	  
+	   static  class ViewHolder{
+			  
+		   public  TextView geming;
+		   public  TextView geshou;
+		   public  ImageView arrow;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -77,22 +85,32 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		// TODO Auto-generated method stub
 		return position;
 	}
-
+    
+	
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		 if(convertView == null){
+		 
+		 
+		if(convertView == null){
+			   holder= new ViewHolder();
 			   convertView = inflater.inflate(R.layout.wholegedan_layout, null);
-			   geming = (TextView)convertView.findViewById(R.id.showgeming);
-			   geshou = (TextView)convertView.findViewById(R.id.showgeshou);
-			   arrow = (ImageView)convertView.findViewById(R.id.xialagongneng);
+			   
+			  holder.geming = (TextView)convertView.findViewById(R.id.showgeming);
+			   holder.geshou = (TextView)convertView.findViewById(R.id.showgeshou);
+			   holder.arrow = (ImageView)convertView.findViewById(R.id.xialagongneng);
+			   //将设置好的布局保存到缓存中，并将其设置在Tag里，以便后面方便取出Tag
+			   convertView.setTag(holder);
 		 }
-		 else{}
+		 else{
+			     holder = (ViewHolder)convertView.getTag();
+		 }
 		 //返回数据
-		 geming.setText(transit.get(position).get("geming").toString());
-		 geshou.setText(transit.get(position).get("geshouming").toString());
+		 holder.geming.setText(transit.get(position).get("geming").toString());
+		 holder.geshou.setText(transit.get(position).get("geshouming").toString());
 	//	 geming.setOnClickListener(this);
-		 arrow.setOnClickListener(this);
+		 holder.arrow.setOnClickListener(this);
 		 return convertView;
 	}
 
@@ -101,7 +119,7 @@ public class gedanlistviewadapter  extends BaseAdapter implements  android.view.
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.showgeming:
-			String name = (String) geming.getText();
+			String name = (String) holder.geming.getText();
 			Log.i(TAG, name);
 			Intent inten1 = new Intent(context,zhujiemian.class);   //点击歌名时弹出主界面窗口,继承baseadapter,里面的控件添加点击事件
 			context.startActivity(inten1);

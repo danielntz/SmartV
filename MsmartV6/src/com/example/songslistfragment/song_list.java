@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 	
 	
 	  private static final String TAG = null;
-	private ListView  gedanliebiao ;
+	  private ListView  gedanliebiao ;
 	  private gedanlistviewadapter adapter = null;
 	  private AutoCompleteTextView  autodata;
 	  private autocompletetextadapter autoadapter = null;
@@ -71,7 +72,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		return  fragment2;
 	}
 
-
+	
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
