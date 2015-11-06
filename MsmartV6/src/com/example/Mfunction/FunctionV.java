@@ -41,12 +41,13 @@ public class FunctionV implements OnPreparedListener {
 		      showmv.setVideoPath("/sdcard/"+wholeaddress); //设置本地资源路径
 			  showmv.requestFocus();    //设置焦点
 			   this.bofang = 1 ;
-		   
+		    }
 		     showmv.setOnPreparedListener(this);
 		     showmv.start();
-		    }
-		   
+		     
 	  }
+		   
+	 
 	  public   void pause(VideoView showmv){
 		
 		  if(showmv != null && showmv.isPlaying()){
