@@ -2,15 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-     <TextView   
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="vbnvbnvbdddd"/>
+    android:orientation="vertical" 
+    android:background="@drawable/beijign">
+    
     <!-- 使用include用来调用其他的布局 -->
     <!-- 
      <include   
             android:id="@+id/mixlayout"
             layout="@layout/song_list_layout"/>
     -->
+    <com.example.songslistfragment.SegmentControlView
+            
+              android:id="@+id/segment"
+              android:layout_width="240dip"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dip"
+              android:layout_marginLeft="38.0dip"
+              android:padding="0.5dip"
+              android:background="@drawable/whole"
+                    >
+     </com.example.songslistfragment.SegmentControlView>
+   <FrameLayout   
+                         android:layout_width="fill_parent"
+                         android:layout_height="300dip"
+                         android:id="@+id/jiashang"></FrameLayout>
+   
 </LinearLayout>

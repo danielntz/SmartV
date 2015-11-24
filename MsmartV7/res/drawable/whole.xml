@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!--   整体的segmentcontrol 线条是蓝色，填充色是白色 -->
+    <item   >
+         <shape >
+             <stroke  android:color="@color/lightgreen" android:width="3dip"/>
+             <solid   android:color="@color/white"/>
+             <corners android:topLeftRadius="3dip" android:bottomLeftRadius="3dip" android:topRightRadius="3dip" android:bottomRightRadius="3dip"/>
+             
+         </shape>
+    </item>
+
+</selector>
