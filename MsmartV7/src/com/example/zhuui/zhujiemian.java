@@ -84,7 +84,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	boolean  flag = false;      //标记用来判断按钮是否按下
 	private  ViewPager  viewpager = null; 
 	private  List<Fragment> fragments = null;
-    private FunctionM   bofangmusic = new FunctionM();  //初始化MediaPlayer
+    private FunctionM   bofangmusic = new FunctionM();  //初始化MediaPlayer,用来播放当前按下的第一首
+    private  FunctionM    xiayishoumusic = new FunctionM();      //重新开启一个Mediaplayer对象,用来播放下一首歌
 	private  FragmentPagerAdapter  fpadapter;
 	private  ImageView   leftdot;
 	private  ImageView   middledot;
@@ -102,7 +103,11 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
     private  long   longshijian;       //获得相对应歌曲的总毫秒数
     private  String  longshijian1;     //转化成时间格式
     private  boolean   judge =  false;
+    private  int       progress  = 1;            //判断当前歌的长度是否还变化， 变化说明没有完，没变化说明歌曲结束
+    private   int    panduanshifang  = 1;     //当1，释放当前歌曲，当2,释放下一首歌曲
+  private    int     addindex = 0;
     private   LayoutInflater   inflater;
+    private   String  xiayishougequmingzi;
 	@Override
 	
 	
@@ -143,8 +148,13 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		Intent intent =getIntent();
 	    gequmingzi = intent.getStringExtra("geming");
 	//	songtitle.setText(gequmingzi);          给textview添加歌曲的名字
-	     inithuadongtitlecontent();
-	     bofangmusic();
+	     inithuadongtitlecontent(gequmingzi);
+	     try {
+			bofangmusic();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    bofang.setOnClickListener(this);
 	    zanting.setOnClickListener(this);
 	    xiayishou.setOnClickListener(this);
@@ -160,9 +170,10 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
      //   seekbar.setOnSeekBarChangeListener(new seekbarprogress());
 }
 
-	  private  void   inithuadongtitlecontent(){
+	  private  void   inithuadongtitlecontent( String gequmingzi){
 		         View  view = inflater.inflate(R.layout.huadongsongtitle_layout, null);   //在加载新的布局文件前，一定要指定inflater，否则是空的
 		        TextView   hhh = (TextView)view.findViewById(R.id.songtitlecontent);
+		       hhh.setText("");
 		       hhh.setText(gequmingzi);
 		        hhh.setFocusable(false);
 		        hhh.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -170,59 +181,129 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		       songtitle.addView(view);
 		
 	  }
+	  //播放音乐时的主界面布局初始化
+	  
+	    public   void  initbofangjiemian(FunctionM   bofangmusic){
+	    	  
+	    	try {
+				     bofangmusic.start(gequmingzi);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		     
+			seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
+		//   Log.i(TAG, "进度"+bofangmusic.player.getDuration());
+		    longshijian = bofangmusic.player.getDuration();
+		      longshijian1 = new haomiaotoshijian().formattime(longshijian);
+		      zongshijian.setText(longshijian1);
+		       if(!judge)
+		      bofangshijian.setText("00:00");
+	    }
+	  
 	  //进入页面后自动播放音乐
-	    private    void    bofangmusic(){
-	    		 if(!flag) 
+	    private    void    bofangmusic() throws InterruptedException{
+	     	 
+	    	if(!flag) 
 			 {
 				 uiassit.disappear(bofang);
 				 uiassit.show(zanting);
 				 flag = true;
 			 }
-			 
-			
-			 try {
-			 	bofangmusic.start(gequmingzi);
-			     
-				 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
-			   Log.i(TAG, "进度"+bofangmusic.player.getDuration());
-			    longshijian = bofangmusic.player.getDuration();
-			      longshijian1 = new haomiaotoshijian().formattime(longshijian);
-			      zongshijian.setText(longshijian1);
-			      
-			     if(!judge)
-			      bofangshijian.setText("00:00");
-				 
-				// new Thread(new seekbartongbu()).start();
+	    		  initbofangjiemian(bofangmusic);
 				new Thread (new Runnable(){
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						while(true){
-						
-						try {
-						
-							{seekbar.setProgress(bofangmusic.player.getCurrentPosition()); }//获得当前播放的进度值
-						 //   bofangshijian.setText(bofangmusic.player.getCurrentPosition());
-							
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						}
-					}
 					
-				}).start();
+						 while(true)
+						{     
+							  if(bofangmusic.player != null)
+							  {	 
+								  seekbar.setProgress(bofangmusic.player.getCurrentPosition()); 	//获得当前播放的进度值
+							  }
+							  else{
+							         seekbar.setProgress(xiayishoumusic.player.getCurrentPosition());  //获得接下来一首歌的当前播放进度
+							  }
+								  //判断一首歌是否结束，结束则释放MediaPlayer资源,
+							 //getduration 和  getCurrentPosition 不相等，不知是为何？
+			                       if(bofangshijian.getText().equals(zongshijian.getText())){
+			            	             if(panduanshifang == 1) {
+			            	            	 bofangmusic.player.stop();    
+			            	                 bofangmusic.player.reset();
+			                  	            bofangmusic.player = null;      //释放上一首歌的Mediaplayer对象
+			                  	            panduanshifang = 2;
+			                  	              addindex = 1;
+			            	             }
+			            	             else{
+			            	            	 xiayishoumusic.player.stop();    
+			            	                 xiayishoumusic.player.reset();
+			                  	             xiayishoumusic.player = null;      //释放下一首歌的Mediaplayer对象
+			                  	             addindex ++;
+			            	             }
+			                      
+			                     nextsong(addindex,xiayishoumusic);
+			            	    runOnUiThread( new Runnable() {                                      //更改主界面的线程
+								public void run() {
+									   initbofangjiemian(xiayishoumusic);
+								}
+							});
+			         	  //     break;
+			             }
+							 try {
+								  	Thread.sleep(1000);
+							  
+								
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+				}
+		  	}).start();
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 	    }
-	 
+	   
+	 /**
+	  *   当前歌曲完成后自动播放下一首歌曲，也就是顺序播放
+	  *   参数 i 用做加的歌曲顺序
+	  */
+	       public     void      nextsong (int  i,FunctionM  xiayishoumusic){
+	    	                try {
+	    	                 
+	    	                	int    position   = new chuandishuju().getIndex();     //得到播放完的歌曲的索引
+	    	                	    Log.i(TAG, position+"");     
+	    	                	List<HashMap<String,Object>>gequliebiao = new ArrayList<HashMap<String,Object>>();
+								      gequliebiao = uiassit.creategedan();
+								       xiayishougequmingzi = gequliebiao.get(position+i).get("geming").toString();
+								         Log.i(TAG, position+ i +"");
+	    	                	        xiayishoumusic.start(xiayishougequmingzi);
+	    	                	   new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										  runOnUiThread(new Runnable() {
+												
+												@Override
+												public void run() {
+													// TODO Auto-generated method stub
+													inithuadongtitlecontent(xiayishougequmingzi);
+												}
+											});
+									}
+								}).start();
+	    	                	   
+	    	                	   	} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	    	                
+	       }
 	/**
-	 * 
+	 * 初始化viewpager
 	 */
 	private void initsetviewadapter() {
 		// TODO Auto-generated method stub
@@ -237,7 +318,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		  viewpager.setAdapter(fpadapter);
 		  viewpager.setCurrentItem(1);      //默认第二个fragment首先显示
 		  viewpager.setOnPageChangeListener(new exchangedot());
-		
+		  
 	 }
 	
 	
@@ -255,9 +336,17 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	   switch (v.getId()) {
 	   
 	   case R.id.suoxiao:
-		    finish(); 
+		    finish();
+		  if(bofangmusic.player != null){
 		    bofangmusic.player.stop();     //stop后需要prepare才行
 		    bofangmusic.player.reset();    //处在空闲状态
+		 //   bofangmusic.player = null;
+		  }
+		  if(xiayishoumusic.player != null){
+			  xiayishoumusic.player.stop();
+			  xiayishoumusic.player.reset();
+		//	  xiayishoumusic.player = null;
+		  }
 		    break;
 	case R.id.bofang:
 	    	 if(!flag) 
@@ -271,7 +360,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		 try {
 		 	bofangmusic.start(gequmingzi);
 		     
-			 seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
+		   seekbar.setMax(bofangmusic.player.getDuration());   //给seekbar添加具体的时间
 		   Log.i(TAG, "进度"+bofangmusic.player.getDuration());
 		    longshijian = bofangmusic.player.getDuration();
 		      longshijian1 = new haomiaotoshijian().formattime(longshijian);
@@ -290,15 +379,25 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 					
 					try {
 					
-						{seekbar.setProgress(bofangmusic.player.getCurrentPosition()); }//获得当前播放的进度值
+						{seekbar.setProgress(bofangmusic.player.getCurrentPosition()); //获得当前播放的进度值
 					 //   bofangshijian.setText(bofangmusic.player.getCurrentPosition());
-						
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
+						   if(bofangshijian.getText().equals(zongshijian.getText())){
+		            	     bofangmusic.player.stop();
+							   bofangmusic.player.reset();
+		            	     //  bofangmusic.player.release();
+		            	       break;
+		             }
+					  	Thread.sleep(1000);
+					
+						}
+					}
+					  catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+				
+						}
 					}
-					}
+				
 				}
 				
 			}).start();
@@ -319,7 +418,11 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
              flag = false;
              judge = true;
 		 }
+		 if(bofangmusic.player !=null)
 		bofangmusic.pause();
+		 else{
+			     xiayishoumusic.pause();
+		 }
 		 
 		 break;
 	case R.id.xiayishou:
@@ -612,12 +715,19 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
 		// TODO Auto-generated method stub
-		  String nowtime = new haomiaotoshijian().formattime(progress);
+		
+		String nowtime = new haomiaotoshijian().formattime(progress);
+		//Log.i(TAG, progress+"");
+		new chuandishuju().setCurrentprogress(progress);
+		
 		  if(nowtime.contains(":")){
 			  bofangshijian.setText(nowtime);
 			  }
 		  else
 			 bofangshijian.setText("00:"+nowtime); 	
+		 
+		  
+		  
 	}
 
 	@Override
@@ -629,8 +739,11 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
-		 
+		 if(bofangmusic.player != null)
 		  bofangmusic.player.seekTo(seekbar.getProgress());
+	 else{
+			 xiayishoumusic.player.seekTo(seekbar.getProgress());
+		 }
 	}
 	  
 		  

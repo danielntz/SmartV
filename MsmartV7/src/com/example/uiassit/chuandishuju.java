@@ -11,19 +11,30 @@ import android.media.MediaPlayer;
 public class chuandishuju  extends Application{
        
 	  public  static  String name = "yes";
-	  public  static  int flag = 1;    //表示没有传数据
+	  public  static  int flag = 1;                                          //表示没有传数据
 	  public  static  List<String> xihuandegequ = new ArrayList<String>();
 	  public  static  String geshouname;
 	  public  static  adjustscreen  maxscreen;
 	  public  static long bofangshijian;   
 	  public  static  long  wholetime;
-	
-	public  static  int  timeprogress;
-      public  static  MediaPlayer   player;
-	  
-      
-      
-      public  MediaPlayer getPlayer() {
+     public   static  int  timeprogress;
+      public  static  MediaPlayer   player;  
+	  public  static   int        Index ;                                         //获得当前的歌曲的索引
+	  public  static   int     currentprogress ;                             //获得当前的歌曲长度
+	 
+     public int getCurrentprogress() {
+		     return this.currentprogress;
+	}
+	public void setCurrentprogress(int currentprogress) {
+		    this.currentprogress = currentprogress;
+	}
+	public int getIndex() {
+		    return this.Index;
+	}
+	 public void setIndex(int index) {
+		    this.Index = index;
+	}
+	public  MediaPlayer getPlayer() {
   	           	return player;
   	}
   	   public  void  setPlayer(MediaPlayer player) {

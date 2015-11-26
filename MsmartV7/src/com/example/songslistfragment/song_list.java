@@ -87,12 +87,13 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		 
 	}
 		 if(parent == gedanliebiao){     //按下listview时调用的方法
-			//分两种情况  1初始化的，2 进行Autocomplextextview选择后的
+			//分两种情况  2初始化的，1 进行Autocomplextextview选择后的
 			 if(updateadapter.transit.size() < 2  && updateadapter.transit.size() > 0){
 				 Intent intent1 = new Intent(getActivity(),zhujiemian.class);
 				 String name =  updateadapter.transit.get(position).get("geming").toString();
 				 String geshou = updateadapter.transit.get(position).get("geshouming").toString();
-				 new chuandishuju().setgeshouname(geshou);
+				 new chuandishuju().setgeshouname(geshou);      //存储当前歌手名字，传给另一个界面
+				 new chuandishuju().setIndex(position);                     //获得当前歌曲的索引
 				 intent1.putExtra("geming", name);
 				 Log.i(TAG, name);
 				 startActivity(intent1);      //开启主界面
@@ -102,6 +103,8 @@ public class song_list extends Fragment implements OnItemClickListener  {
 			 String name =  adapter.transit.get(position).get("geming").toString();
 			 String geshou = adapter.transit.get(position).get("geshouming").toString();
 			 intent1.putExtra("geming", name);
+			 new chuandishuju().setIndex(position);                     //获得当前歌曲的索引
+			 Log.i(TAG, new chuandishuju().getIndex()+"");
 			 new chuandishuju().setgeshouname(geshou);
 			 Log.i(TAG, name);
 			 startActivity(intent1);      //开启主界面
