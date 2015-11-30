@@ -121,7 +121,7 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 			}
 			return results;
 		}
-
+         //Ë¢ĞÂ½çÃæ
 		@Override
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {

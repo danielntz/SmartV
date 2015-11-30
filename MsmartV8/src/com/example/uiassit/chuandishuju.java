@@ -21,8 +21,16 @@ public class chuandishuju  extends Application{
       public  static  MediaPlayer   player;  
 	  public  static   int        Index ;                                         //获得当前的歌曲的索引
 	  public  static   int     currentprogress ;                             //获得当前的歌曲长度
+	  public  static  String   nextsongname;                      //接下来的歌曲名字
+	  
 	 
-     public int getCurrentprogress() {
+     public  String getNextsongname() {
+		return this.nextsongname;
+	}
+	public  void setNextsongname(String nextsongname) {
+		this.nextsongname = nextsongname;
+	}
+	public int getCurrentprogress() {
 		     return this.currentprogress;
 	}
 	public void setCurrentprogress(int currentprogress) {

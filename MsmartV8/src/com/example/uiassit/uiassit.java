@@ -35,6 +35,14 @@ public class uiassit  {
 	public  static void show(View view){
 		view.setVisibility(view.VISIBLE);
 	}
+	//返回歌曲的列表
+	public   static   List<String> huodegedan(){
+		       
+		   List<String> huodegedan = new ArrayList<String>();
+	       File    file = Environment.getExternalStorageDirectory();
+		   huodegedan = new FunctionSDfilename().getFilesname(file);
+		  return  huodegedan;
+}
 	
 
 	//listview 的数据源填充
