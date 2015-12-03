@@ -59,6 +59,9 @@ public class videoslist  extends Activity implements OnItemClickListener{
 	//	 Log.i(TAG, new chuandishuju().getgeshouname());
 		 if(parent == showvideo){
 			 Intent intent = new Intent(this,videoshow.class);
+			Bundle  bundle = new Bundle();
+			bundle.putInt("mvbiaoqian", 2);
+			 intent.putExtras(bundle);
 			 startActivity(intent);
 		 }
 	}

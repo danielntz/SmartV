@@ -62,6 +62,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 	  private  int  min = 0;  //播放时间的分
 	  private  int  second = 0; //播放时间的秒
 	  private  boolean flagshijiangenzong ;     //暂停时，播放时间不走， 开始时播放时间同步,利用线程中的循环来实现
+	 private    int       judgeflagmv  ;                  //判断mv的名字来自于mv标签,还是来自于videolist列表
 	 
 	  @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,11 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 		time2 = (TextView)findViewById(R.id.zongshijian);
 		screen = (adjustscreen)findViewById(R.id.showvideo);
 		max = (TextView )findViewById(R.id.max);
+		Bundle  bundle = new Bundle();
+		bundle = this.getIntent().getExtras();
+		judgeflagmv = bundle.getInt("mvbiaoqian");
+		Log.i(TAG, judgeflagmv+"");
+		
 	    chushihua();
 	    bofangmv.setOnClickListener(this);
 	    zantingmv.setOnClickListener(this);
@@ -185,6 +191,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 			 uiassit.show(zantingmv);
 			 uiassit.disappear(bofangmv);
 			 flagbutton  =1;
+			 if(judgeflagmv == 2){
 			 screenvideo.start(screen,new chuandishuju().getname());
 			 flagshijiangenzong = true;
 		//	 time.setMax(screen.getDuration());
@@ -211,6 +218,35 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 				}
 				 
 			 }).start();
+			 }
+			 if(judgeflagmv == 1){
+				 screenvideo.start(screen,new chuandishuju().getTomvname());
+				 flagshijiangenzong = true;
+			//	 time.setMax(screen.getDuration());
+				 screen.setOnPreparedListener(this);
+				
+				// Log.i(TAG,"进度"+screen.getDuration() );
+				 new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						     
+						while(flagshijiangenzong ){
+							 
+							try {
+								   time.setProgress(screen.getCurrentPosition());
+								   
+						       	   Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+					 
+				 }).start();
+			 }
 		 	 break;
 			 
 			 

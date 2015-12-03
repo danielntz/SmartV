@@ -3,6 +3,7 @@ package com.example.uiassit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Mfunction.FunctionM;
 import com.example.adjustscreen.adjustscreen;
 
 import android.app.Application;
@@ -22,9 +23,26 @@ public class chuandishuju  extends Application{
 	  public  static   int        Index ;                                         //获得当前的歌曲的索引
 	  public  static   int     currentprogress ;                             //获得当前的歌曲长度
 	  public  static  String   nextsongname;                      //接下来的歌曲名字
+	  public  static  String   tomvname;                           
+	 public    static  FunctionM   tomv;                              //用来保存当前的播放歌曲的对象
 	  
-	 
-     public  String getNextsongname() {
+	  
+	  
+	  
+	  
+     public  FunctionM getTomv() {
+		return tomv;
+	}
+	public  void setTomv(FunctionM tomv) {
+		chuandishuju.tomv = tomv;
+	}
+	public String getTomvname() {
+		return tomvname;
+	}
+	public void setTomvname(String tomvname) {
+		chuandishuju.tomvname = tomvname;
+	}
+	public  String getNextsongname() {
 		return this.nextsongname;
 	}
 	public  void setNextsongname(String nextsongname) {

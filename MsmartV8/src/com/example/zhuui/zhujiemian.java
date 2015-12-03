@@ -155,7 +155,8 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 		//初始化获得传递过来的值
 		Intent intent =getIntent();
 	    gequmingzi = intent.getStringExtra("geming");
-	//	songtitle.setText(gequmingzi);          给textview添加歌曲的名字
+	    new chuandishuju().setTomvname(gequmingzi);
+	 //	songtitle.setText(gequmingzi);          给textview添加歌曲的名字
 	     inithuadongtitlecontent(gequmingzi);
 	     try {
 			bofangmusic();
@@ -253,6 +254,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 				 flag = true;
 			 }
 	    		 initbofangjiemian(bofangmusic);
+	    		 new  chuandishuju().setTomv(bofangmusic);
 	    		 new Thread(new shunxubofang()).start();
 	    		// jumprepeat = false;
 	    		// jumprandom = false;
@@ -276,7 +278,9 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 								       new  chuandishuju().setNextsongname(xiayishougequmingzi);
 								       new  chuandishuju().setIndex(position+i);        //记录不管是顺序播放还是随机播放还是循环播放当前播放歌曲在数据源中的位置
 								         Log.i(TAG, position+ i +"");
+								         new  chuandishuju().setTomvname(xiayishougequmingzi);
 	    	                	        xiayishoumusic.start(xiayishougequmingzi);
+	    	                	        new  chuandishuju().setTomv(xiayishoumusic);
 	    	                	   new Thread(new Runnable() {
 									
 									@Override
@@ -337,6 +341,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 					     new chuandishuju().setIndex(position);     
 					     Log.i(TAG, position+"");
 				        xiayishougequmingzi = gequming.get(position).toString();
+				        new  chuandishuju().setTomvname(xiayishougequmingzi);
 					   //      Log.i(TAG, position+ i +"");
                	        xiayishoumusic.start(xiayishougequmingzi);
                	   new Thread(new Runnable() {
@@ -372,8 +377,10 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 						      gequliebiao = uiassit.creategedan();
 						  
 					        xiayishougequmingzi = gequliebiao.get(position).get("geming").toString();
+					        new  chuandishuju().setTomvname(xiayishougequmingzi);
 						   //      Log.i(TAG, position+ i +"");
 	               	        xiayishoumusic.start(xiayishougequmingzi);
+	               	  
 	               	   new Thread(new Runnable() {
 							
 							@Override
@@ -751,7 +758,7 @@ public class zhujiemian  extends FragmentActivity implements OnClickListener, On
 	            	             }
 	            	             }
 	                  if(judgekong != 1)    {
-	                     nextsong(addindex,xiayishoumusic);
+	                	   nextsong(addindex,xiayishoumusic);
 	            	     runOnUiThread( new Runnable() {                                      //更改主界面的线程
 					 	public void run() {
 							   initbofangjiemian(xiayishoumusic);

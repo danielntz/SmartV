@@ -20,13 +20,14 @@ import android.widget.TextView;
 //autocompletetextview 怎样去实现Filterable的接口  ,怎样去实现过滤器接口
 public class autocompletetextadapter  extends  BaseAdapter implements Filterable, android.view.View.OnClickListener {
      
-	 private TextView textview; 
+	
 	 private Context context;
 	 private LayoutInflater  inflater;
 	 private  List<String> textviewdata;
      private  ArrayFilter mFilter;             //生成过滤器
      public  List<String> filttextviewdata;   //过滤后的list列表
 	 private Object mlock = new Object();
+	 private   ViewHolder  holder = null;    
 	// private  static int j =0 ;
 	
 	
@@ -37,7 +38,9 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 		 this.context = context;
 		 this.inflater = LayoutInflater.from(context);
 	 }
-	
+	static class  ViewHolder {
+		              public   TextView    textview;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -62,13 +65,16 @@ public class autocompletetextadapter  extends  BaseAdapter implements Filterable
 		// TODO Auto-generated method stub
 	    
 		if(convertView == null){
-	    	 convertView = inflater.inflate(R.layout.autocompletetext_layout, null);
-	    	 
-	    	 textview = (TextView)convertView.findViewById(R.id.autodata);
+			 holder = new ViewHolder();   
+		 	convertView = inflater.inflate(R.layout.autocompletetext_layout, null);
+            holder.textview = (TextView)convertView.findViewById(R.id.autodata);
+	    	convertView.setTag(holder);
 	     }
-	     else{}
+	     else{
+	    	          holder = (ViewHolder)convertView.getTag();
+	     }
 	    
-	       textview.setText(filttextviewdata.get(position).toString());
+	           holder.textview.setText(filttextviewdata.get(position).toString());
 	     //  textview.setOnClickListener(this);
 	       
 	 
