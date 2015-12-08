@@ -208,7 +208,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 						 
 						try {
 							   time.setProgress(screen.getCurrentPosition());
-							   
+							   new chuandishuju().setMaxscreen(screen);
 					       	   Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -236,7 +236,7 @@ public class videoshow  extends FragmentActivity implements OnClickListener, OnP
 							 
 							try {
 								   time.setProgress(screen.getCurrentPosition());
-								   
+								   new chuandishuju().setMaxscreen(screen);
 						       	   Thread.sleep(1000);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block

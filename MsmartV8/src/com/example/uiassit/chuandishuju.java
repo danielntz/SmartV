@@ -16,21 +16,25 @@ public class chuandishuju  extends Application{
 	  public  static  List<String> xihuandegequ = new ArrayList<String>();
 	  public  static  String geshouname;
 	  public  static  adjustscreen  maxscreen;
-	  public  static long bofangshijian;   
+	 
+	public  static long bofangshijian;   
 	  public  static  long  wholetime;
      public   static  int  timeprogress;
       public  static  MediaPlayer   player;  
-	  public  static   int        Index ;                                         //获得当前的歌曲的索引
+	  public  static   int        Index ;                                    //获得当前的歌曲的索引
 	  public  static   int     currentprogress ;                             //获得当前的歌曲长度
-	  public  static  String   nextsongname;                      //接下来的歌曲名字
+	  public  static  String   nextsongname;                                //接下来的歌曲名字
 	  public  static  String   tomvname;                           
-	 public    static  FunctionM   tomv;                              //用来保存当前的播放歌曲的对象
+	  public    static  FunctionM   tomv;                                     //用来保存当前的播放歌曲的对象
 	  
 	  
-	  
-	  
-	  
-     public  FunctionM getTomv() {
+	  public  adjustscreen getMaxscreen() {
+			return maxscreen;
+		}
+		public  void setMaxscreen(adjustscreen maxscreen) {
+			this.maxscreen = maxscreen;
+		}
+	  public  FunctionM getTomv() {
 		return tomv;
 	}
 	public  void setTomv(FunctionM tomv) {

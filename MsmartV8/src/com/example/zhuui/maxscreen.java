@@ -78,8 +78,9 @@ public class maxscreen extends Activity implements OnPreparedListener, OnClickLi
 			 }
 		  else
 			 bofangshijian.setText("00:"+bofangtime); 	
-		     bofang.start(large,new chuandishuju().getname());
-	  /*  new Thread(new Runnable(){
+		   //    bofang.start(new chuandishuju().getMaxscreen(),new chuandishuju().getname());
+	     bofang.start(large, new chuandishuju().getname());
+		 /*  new Thread(new Runnable(){
 
 			@Override
 			public void run() {

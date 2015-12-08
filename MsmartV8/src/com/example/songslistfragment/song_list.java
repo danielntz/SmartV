@@ -83,6 +83,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 		 updateadapter = new gedanlistviewadapter(getActivity(), uiassit.Compare(gename));
 		 updateadapter.clear();
 		 gedanliebiao.setAdapter(updateadapter);
+		 new chuandishuju().setname(gename);
 		 updateadapter.refresh(uiassit.Compare(gename));
 		 
 	}
@@ -95,6 +96,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 				 new chuandishuju().setgeshouname(geshou);      //存储当前歌手名字，传给另一个界面
 				 new chuandishuju().setIndex(position);                     //获得当前歌曲的索引
 				 intent1.putExtra("geming", name);
+				 new chuandishuju().setname(name);
 				 Log.i(TAG, name);
 				 startActivity(intent1);      //开启主界面
 			 }
@@ -106,6 +108,7 @@ public class song_list extends Fragment implements OnItemClickListener  {
 			 new chuandishuju().setIndex(position);                     //获得当前歌曲的索引
 			 Log.i(TAG, new chuandishuju().getIndex()+"");
 			 new chuandishuju().setgeshouname(geshou);
+			 new chuandishuju().setname(name);
 			 Log.i(TAG, name);
 			 startActivity(intent1);      //开启主界面
 			 }
